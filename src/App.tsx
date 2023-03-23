@@ -6,7 +6,6 @@ import TopBar from "./views/TopBar";
 import Home from "./routes/Home";
 import Movie from "./routes/Movie";
 import E404 from "./routes/E404";
-import Booking from "./routes/Booking";
 
 function App() {
   return (
@@ -15,10 +14,8 @@ function App() {
 
       <Routes>
         <Route path="/" element={<Home />} />
-
+      
         <Route path="/movie/:id" element={<Movie />} />
-
-        <Route path="/booking" element={<Booking />} />
 
         <Route path="*" element={<E404 />} />
       </Routes>

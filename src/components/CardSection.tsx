@@ -2,6 +2,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Autoplay } from "swiper";
 import { Link } from "react-router-dom";
 import conf from "../Config";
+import { URL, URL_IMAGE } from "../AppContains";
 
 let breakpoints = {
   0: {
@@ -43,32 +44,24 @@ function CardSection({ title, items }: any) {
     <div className="movie-section">
       <p className="movie-section-title">{title}</p>
 
-      <Swiper
-        autoplay={{ delay: 5000 }}
-        navigation={true}
-        modules={[Navigation, Autoplay]}
-        loop={true}
-        className="movie-section-row"
-        breakpoints={breakpoints}
-      >
+      <Swiper autoplay={{ delay: 5000 }} navigation={true} modules={[Navigation, Autoplay]} className="movie-section-row" breakpoints={breakpoints}>
         {items.map((item: any) => (
-          <SwiperSlide key={item.id}>
-            <Link
-              to={`/${item.type === "movie" ? "movie" : "tv"}/${item.id}`}
-              className="movie-card"
-              style={{
-                background: `url(${
-                  conf.TMDB_IMAGE_URL + "/w200" + item.image
-                }) no-repeat center / cover`,
-              }}
-            >
-              <div className="movie-card-content">
-                <i className="fa-solid fa-ticket"></i>
-
-                <p>{item.title}</p>
-              </div>
-            </Link>
-          </SwiperSlide>
+          <div>
+            <SwiperSlide key={item.id}>
+              <Link
+                to={`/movie/${item.id}`}
+                className="movie-card"
+                style={{
+                  background: `url(${URL_IMAGE + item.thumail}) no-repeat center / cover `,
+                }}
+              >
+                <div className="movie-card-content">
+                  {/* <i className="fa-solid fa-play"></i> */}
+                  <p>{item.titile}</p>
+                </div>
+              </Link>
+            </SwiperSlide>
+          </div>
         ))}
       </Swiper>
     </div>

@@ -105,6 +105,38 @@ a{
     color: #bababa;
 }
 
+.item-nav-margin{
+    margin-top: 4px;
+    margin-right: 30px;
+}
+
+.input-nav-margin{
+    margin-right: 10px;
+}
+
+.icon-nav-margin{
+    margin-right: 90px;
+    border-radius: 20px;
+    color: white !important;
+}
+
+.button-nav{
+    background-color:rgb(253, 26, 26); 
+    border-radius: 10px;
+    width: 70px
+}
+
+.hot{
+    color: #ff0000;
+    border-radius: 5px;
+}
+
+.normal{
+    color: white;
+    border-radius: 5px;
+}
+
+
 @import "components/card-section";
 
 @import "routes/home";

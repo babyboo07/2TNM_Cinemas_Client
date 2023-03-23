@@ -44,13 +44,21 @@ function TopBar(){
                 </Link>
 
                 <div className="top-bar-search">
+                    <h3 className="item-nav-margin">Home</h3> 
+                    <h3 className="item-nav-margin">Movie</h3>
+
+                    <h3 className="item-nav-margin">About Us</h3>
+
+                    <h3 className="item-nav-margin">Contact</h3>
+
                     <input
                     type="text"
                     value={search}
+                    className="input-nav-margin"
                     placeholder="Search"
                     onChange={e => onChange(e)} />
 
-                    <i className="fa-solid fa-search"></i>
+                    <i className="fa-solid fa-search icon-nav-margin"></i>
 
                     {
                         (search.length > 0 && results) && (
@@ -70,6 +78,8 @@ function TopBar(){
                             </div>
                         )
                     }
+
+                    <button className="button-nav">Sign In</button>
                 </div>
 
                 <div className="top-bar-mobile">

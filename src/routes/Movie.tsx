@@ -1,39 +1,25 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { Helmet } from "react-helmet";
-import {
-  FacebookShareButton,
-  FacebookIcon,
-  TwitterShareButton,
-  TwitterIcon,
-  TelegramShareButton,
-  TelegramIcon,
-} from "react-share";
+import { FacebookShareButton, FacebookIcon, TwitterShareButton, TwitterIcon, TelegramShareButton, TelegramIcon } from "react-share";
 import conf from "../Config";
 import CardSection from "../components/CardSection";
 import Loading from "../views/Loading";
+import { IMovie } from "../Util/FormInit";
+import { getListMovieById } from "../API/movies/moviesUtil";
 
 function Movie() {
-  const nav = useNavigate();
-
   const { id } = useParams();
-
-  const [data, setData] = useState<any>(null);
-
+  const [data, setData] = useState<IMovie>();
   async function getMovie() {
-    const req = await fetch(conf.API_URL + "/movies/data?id=" + id);
-    const res = await req.json();
-
-    if (res.success) {
-      setData(res.movie);
-    } else if (res.error) {
-      return nav("/404");
+    const req = await getListMovieById(Number(id));
+    console.log(req); 
+    if (req) {
+      setData(req);
     }
   }
 
   useEffect(() => {
-    setData(null);
-
     getMovie();
   }, [id]);
 
@@ -42,27 +28,27 @@ function Movie() {
   }
 
   return (
-    <>
+    <div>
       <Helmet>
-        <title>{data.title + " - " + data.released + " - " + conf.SITE_NAME}</title>
+        <title>{data.titile + " - " + data.releaseDate}</title>
       </Helmet>
       <div className="container">
         <div className="video-frame">
-          <iframe src={data.embed} allowFullScreen></iframe>
+          <iframe src={"https://www.youtube.com/embed/" + data?.trailer}></iframe>
         </div>
 
         <div className="video-meta">
-          <p className="video-meta-title">{data.title}</p>
+          <p className="video-meta-title">{data.titile}</p>
           <div className="video-meta-row">
-            <div className="video-meta-stars">
-              <i className="fa-solid fa-star"></i>
-              <p>{data.stars}/10</p>
-            </div>
-            <p className="video-meta-year">{data.released}</p>
+            <p className="video-meta-year">{data.startNumber === 1 ? <i className="fa-solid fa-star hot"></i> :<i className="fa-solid fa-star normal"></i>}</p>
+            <p className="video-meta-year">{data.releaseDate}</p>
             <p className="video-meta-length">
-              {Math.floor(data.runtime / 60)}h {data.runtime % 60}m
-            </p>
+                {Math.floor(Number(data.runningTime) / 60)}h {Number(data.runningTime) % 60}m
+                </p>
           </div>
+          <h3 className="video-meta-desc">
+            Author : {data.directorName}
+          </h3>
           <p className="video-meta-desc">{data.description}</p>
           <div className="grid grid-cols-2 ">
             <div>
@@ -76,7 +62,7 @@ function Movie() {
               <div className="video-meta-share justify-end">
                 <FacebookShareButton
                   url={location.href}
-                  quote={`Watch ${data.title} - ${data.released} for free at ${location.href}`}
+                  quote={`Watch ${data.titile} - ${data.releaseDate} for free at ${location.href}`}
                   className="video-meta-button"
                 >
                   <FacebookIcon size={40} round />
@@ -84,7 +70,7 @@ function Movie() {
 
                 <TwitterShareButton
                   url={location.href}
-                  title={`Watch ${data.title} - ${data.released} for free at`}
+                  title={`Watch ${data.titile} - ${data.releaseDate} for free at`}
                   className="video-meta-button"
                 >
                   <TwitterIcon size={40} round />
@@ -92,16 +78,16 @@ function Movie() {
 
                 <TelegramShareButton
                   url={location.href}
-                  title={`Watch ${data.title} - ${data.released} for free at ${location.href}`}
+                  title={`Watch ${data.titile} - ${data.releaseDate} for free at ${location.href}`}
                   className="video-meta-button"
                 >
                   <TelegramIcon size={40} round />
                 </TelegramShareButton>
               </div>
               <div className="video-meta-genres justify-end">
-                {data.genres.map((genre: string) => (
-                  <div key={genre} className="video-meta-genre">
-                    <p>{genre}</p>
+                {data.movieCate.map((cate: any) => (
+                  <div key={cate.categoryId} className="video-meta-genre">
+                    <p>{cate.categoryName}</p>
                   </div>
                 ))}
               </div>
@@ -109,9 +95,9 @@ function Movie() {
           </div>
         </div>
 
-        <CardSection title="Recommended Movies 👍" items={data.recommendations} />
+        {/* <CardSection title="Recommended Movies 👍" items={data.recommendations} /> */}
       </div>
-    </>
+    </div>
   );
 }
 
