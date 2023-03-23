@@ -8,7 +8,7 @@ import Typography from "@mui/material/Typography";
 import { Fragment, useState } from "react";
 import { StepButton } from "@mui/material";
 
-const steps = ["Select campaign settings", "Create an ad group", "Create an ad"];
+const steps = ["People/Seats", "Payment", "Notification"];
 
 function Booking() {
   const [activeStep, setActiveStep] = useState(0);
@@ -16,6 +16,7 @@ function Booking() {
     [k: number]: boolean;
   }>({});
   const rows = [];
+  const cols = [];
 
   const totalSteps = () => {
     return steps.length;
@@ -63,10 +64,36 @@ function Booking() {
     setCompleted({});
   };
 
-  for (let i = 65; i <= 90; i++) {
-    rows.push(<p>{String.fromCharCode(i)}</p>);
-    console.log(String.fromCharCode(i));
+  const handleGenerate = (row: String) => {
+    const column = [];
+    for (let i = 1; i <= 14; i++) {
+      column.push(
+        <button
+          onClick={(e) => selectSeat(row + "-" + i)}
+          className="text-gray-900 border w-12 m-1"
+        >
+          {row + "-" + i}
+        </button>
+      );
+    }
+    return column;
+  };
+
+  for (let i = 65; i <= 75; i++) {
+    rows.push(
+      <div className="container mx-auto">
+        <div className="grid grid-cols-4">
+          <p className="text-gray-900 flex justify-center">{String.fromCharCode(i)}</p>
+          <div className="col-span-3">{handleGenerate(String.fromCharCode(i))}</div>
+        </div>
+      </div>
+    );
   }
+
+  const selectSeat = (seats: any) => {
+    console.log(seats);
+  };
+
   return (
     <>
       <Helmet>
@@ -74,7 +101,7 @@ function Booking() {
       </Helmet>
       <div className="bg-white">
         <div className="container mx-auto">
-          <div className="text-white">Movie Detail</div>
+          <div className="text-gray-900">Movie Detail</div>
           <div>
             <Box sx={{ width: "100%" }}>
               <Stepper nonLinear activeStep={activeStep}>
@@ -102,6 +129,7 @@ function Booking() {
                     {activeStep == 0 ? (
                       <div>
                         <Typography
+                          variant="h4"
                           className="text-gray-900 flex justify-center"
                           sx={{ mt: 2, mb: 1, py: 1 }}
                         >
@@ -139,8 +167,12 @@ function Booking() {
                       </div>
                     ) : activeStep == 1 ? (
                       <div>
-                        <Typography className="text-gray-900" sx={{ mt: 2, mb: 1, py: 1 }}>
-                          Step {activeStep + 1}
+                        <Typography
+                          variant="h4"
+                          className="text-gray-900 flex justify-center"
+                          sx={{ mt: 2, mb: 1, py: 1 }}
+                        >
+                          Payment
                         </Typography>
                         <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
                           <Button color="inherit" onClick={handleBack} sx={{ mr: 1 }}>
@@ -168,8 +200,12 @@ function Booking() {
                       </div>
                     ) : activeStep == 2 ? (
                       <div>
-                        <Typography className="text-gray-900" sx={{ mt: 2, mb: 1, py: 1 }}>
-                          Step {activeStep + 1}
+                        <Typography
+                          variant="h4"
+                          className="text-gray-900 flex justify-center"
+                          sx={{ mt: 2, mb: 1, py: 1 }}
+                        >
+                          Notification
                         </Typography>
                         <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
                           <Button color="inherit" onClick={handleBack} sx={{ mr: 1 }}>
