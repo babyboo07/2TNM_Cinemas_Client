@@ -22,5 +22,12 @@ export interface IMovieDay{
     movieDayId: Number;
     showDate: String;
     movieName: String;
-    lstShowTime: []
+    roomName: String;
+    roomId: String;
+    lstSubMovied: [{
+        showDate: String,
+        lstShowTime: []
+    }
+        
+    ]
 }
