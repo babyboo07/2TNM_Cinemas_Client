@@ -28,7 +28,7 @@ export default function MovieDay() {
   return (
     <div className="grid grid-cols-3 mt-4">
       <div className="col-span-2">
-        <img className="object-contain" src={URL_IMAGE + movie?.thumail} />
+        <img className="object-contain object-fill" src={URL_IMAGE + movie?.thumail} />
       </div>
       <div className="ml-5">
         <p>H</p>
