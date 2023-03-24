@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { Helmet } from "react-helmet";
 import { FacebookShareButton, FacebookIcon, TwitterShareButton, TwitterIcon, TelegramShareButton, TelegramIcon } from "react-share";
 import conf from "../Config";
@@ -13,7 +13,7 @@ function Movie() {
   const [data, setData] = useState<IMovie>();
   async function getMovie() {
     const req = await getListMovieById(Number(id));
-    console.log(req); 
+    console.log(req);
     if (req) {
       setData(req);
     }
@@ -40,24 +40,32 @@ function Movie() {
         <div className="video-meta">
           <p className="video-meta-title">{data.titile}</p>
           <div className="video-meta-row">
-            <p className="video-meta-year">{data.startNumber === 1 ? <i className="fa-solid fa-star hot"></i> :<i className="fa-solid fa-star normal"></i>}</p>
+            <p className="video-meta-year">{data.startNumber === 1 ? <i className="fa-solid fa-star hot"></i> : <i className="fa-solid fa-star normal"></i>}</p>
             <p className="video-meta-year">{data.releaseDate}</p>
             <p className="video-meta-length">
-                {Math.floor(Number(data.runningTime) / 60)}h {Number(data.runningTime) % 60}m
-                </p>
+              {Math.floor(Number(data.runningTime) / 60)}h {Number(data.runningTime) % 60}m
+            </p>
           </div>
-          <h3 className="video-meta-desc">
-            Author : {data.directorName}
-          </h3>
+          <h3 className="video-meta-desc">Author : {data.directorName}</h3>
+
+          <div className="video-meta-genres">
+            <h3 className="video-meta-desc ml-1">Cast: </h3>
+            {data.casts.map((cast: any) => (
+              <div key={cast.castId} className="video-meta-genre-cast">
+                <p>{cast.castName}</p>
+              </div>
+            ))}
+          </div>
           <p className="video-meta-desc">{data.description}</p>
           <div className="grid grid-cols-2 ">
-            <div>
-              <button className="movie-hero-play">
-                {/* <i className="fa-solid fa-play"></i> */}
-                <i className="fa-solid fa-ticket"></i>
-                <p>Buy Ticket</p>
-              </button>
-            </div>
+            <Link to={"/movie/booking/time/" + data.id}>
+              <div>
+                <button className="movie-hero-play">
+                  <i className="fa-solid fa-ticket"></i>
+                  <p>Buy Ticket</p>
+                </button>
+              </div>
+            </Link>
             <div>
               <div className="video-meta-share justify-end">
                 <FacebookShareButton
@@ -68,11 +76,7 @@ function Movie() {
                   <FacebookIcon size={40} round />
                 </FacebookShareButton>
 
-                <TwitterShareButton
-                  url={location.href}
-                  title={`Watch ${data.titile} - ${data.releaseDate} for free at`}
-                  className="video-meta-button"
-                >
+                <TwitterShareButton url={location.href} title={`Watch ${data.titile} - ${data.releaseDate} for free at`} className="video-meta-button">
                   <TwitterIcon size={40} round />
                 </TwitterShareButton>
 

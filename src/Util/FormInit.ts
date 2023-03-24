@@ -16,3 +16,11 @@ export interface IMovie {
     directorId: Number;
     directorName: String;
 }
+
+export interface IMovieDay{
+    movieId: Number;
+    movieDayId: Number;
+    showDate: String;
+    movieName: String;
+    lstShowTime: []
+}

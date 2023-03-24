@@ -5,18 +5,23 @@ import Stepper from "@mui/material/Stepper";
 import Step from "@mui/material/Step";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-import { Fragment, useState } from "react";
+import React, { Fragment, useState } from "react";
 import { StepButton } from "@mui/material";
 
 const steps = ["People/Seats", "Payment", "Notification"];
 
-function Booking() {
+export default function Booking() {
   const [activeStep, setActiveStep] = useState(0);
   const [completed, setCompleted] = useState<{
     [k: number]: boolean;
   }>({});
+
+  const [lstSeat, setLstSeat] = useState<any>({ seats: [] });
   const rows = [];
-  const cols = [];
+
+  React.useEffect(() => {
+    setActiveStep(0);
+  }, [lstSeat]);
 
   const totalSteps = () => {
     return steps.length;
@@ -57,6 +62,7 @@ function Booking() {
     newCompleted[activeStep] = true;
     setCompleted(newCompleted);
     handleNext();
+    handleClick();
   };
 
   const handleReset = () => {
@@ -64,19 +70,46 @@ function Booking() {
     setCompleted({});
   };
 
-  const handleGenerate = (row: String) => {
+  const selectSeat = async (seat: String) => {
+    var seatBooking: String[] = lstSeat.seats;
+
+    const checkSeatExists: String[] = seatBooking.filter((x) => x === seat);
+
+    if (checkSeatExists.length > 0) {
+      const check = seatBooking.filter((x) => x !== seat);
+      setLstSeat({ ...lstSeat, seats: check });
+    } else {
+      seatBooking.push(seat);
+      setLstSeat({ ...lstSeat, seats: seatBooking });
+    }
+  };
+
+  const handleGenerate = (row: String, rowNumber: Number) => {
     const column = [];
+    const background = rowNumber >= 69 && rowNumber <= 73 ? "bg-red-500 " : "border text-gray-900 ";
     for (let i = 1; i <= 12; i++) {
       column.push(
         <button
-          onClick={(e) => selectSeat(row + "-" + i)}
-          className="text-gray-900 border w-12 m-1"
+          onClick={async (e) => await selectSeat(row + "-" + i)}
+          className={`${"text-sm w-12 m-1"} ${changeBackgroundSeat(row + "-" + i) ? "bg-amber-600 text-white" : background}`}
         >
-          {row + "-" + i}
+          {row + " - " + i}
         </button>
       );
     }
     return column;
+  };
+
+  const changeBackgroundSeat = (seat: String) => {
+    var seatBooking: String[] = lstSeat.seats;
+
+    const checkSeatExists: String[] = seatBooking.filter((x) => x === seat);
+
+    if (checkSeatExists.length > 0) {
+      return true;
+    }
+
+    return false;
   };
 
   for (let i = 65; i <= 75; i++) {
@@ -84,14 +117,14 @@ function Booking() {
       <div className="container mx-auto">
         <div className="grid grid-cols-4">
           <p className="text-gray-900 flex justify-center">{String.fromCharCode(i)}</p>
-          <div className="col-span-3">{handleGenerate(String.fromCharCode(i))}</div>
+          <div className="col-span-3">{handleGenerate(String.fromCharCode(i), i)}</div>
         </div>
       </div>
     );
   }
 
-  const selectSeat = (seats: any) => {
-    console.log(seats);
+  const handleClick = () => {
+    console.log(lstSeat.seats);
   };
 
   return (
@@ -131,44 +164,37 @@ function Booking() {
                   <Fragment>
                     {activeStep == 0 ? (
                       <div>
-                        <Typography
-                          variant="h4"
-                          className="text-gray-900 flex justify-center"
-                          sx={{ mt: 2, mb: 1, py: 1 }}
-                        >
+                        <Typography variant="h4" className="text-gray-900 flex justify-center" sx={{ mt: 2, mb: 1, py: 1 }}>
                           People/Seat
                         </Typography>
-                        <div className="flex justify-center pb-5 pl-10">
-                          <p className="bg-gray-500 w-80 h-2 rounded-t-3xl"></p>
-                        </div>
-                        {rows}
+
+                        <div>{rows}</div>
                         <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
+                          <Button color="inherit" disabled={activeStep === 0} onClick={handleBack} sx={{ mr: 1 }}>
+                            Back
+                          </Button>
                           <Box sx={{ flex: "1 1 auto" }} />
-                          <Button onClick={handleNext} sx={{ mr: 1 }}></Button>
+                          <Button onClick={handleNext} sx={{ mr: 1 }}>
+                            <span className="bg-sky-600 border-radius-booking w-36 text-white">Next</span>
+                          </Button>
                           {activeStep !== steps.length &&
                             (completed[activeStep] ? (
-                              <Typography
-                                className="text-gray-900"
-                                variant="caption"
-                                sx={{ display: "inline-block" }}
-                              >
+                              <Typography className="text-gray-900" variant="caption" sx={{ display: "inline-block" }}>
                                 Step {activeStep + 1} already completed
                               </Typography>
                             ) : (
-                              <Button className="" onClick={handleComplete}>
-                                {completedSteps() === totalSteps() - 1 ? "Finish" : "Complete Step"}
+                              <Button onClick={handleComplete} disabled={lstSeat.seats.length > 0 ? false : true}>
+                                <span className={`${lstSeat.seats.length > 0 ? "bg-sky-600 " : "bg-gray-500"} ${"border-radius-booking w-36 text-white"} `}>
+                                  {completedSteps() === totalSteps() - 1 ? "Finish" : "Complete Step"}
+                                </span>
                               </Button>
                             ))}
                         </Box>
                       </div>
                     ) : activeStep == 1 ? (
                       <div>
-                        <Typography
-                          variant="h4"
-                          className="text-gray-900 flex justify-center"
-                          sx={{ mt: 2, mb: 1, py: 1 }}
-                        >
-                          Confirm
+                        <Typography variant="h4" className="text-gray-900 flex justify-center" sx={{ mt: 2, mb: 1, py: 1 }}>
+                          Payment
                         </Typography>
                         <div className="grid grid-cols-2 gap-2">
                           <div className="ticketContainer">
@@ -273,49 +299,47 @@ function Booking() {
                             Back
                           </Button>
                           <Box sx={{ flex: "1 1 auto" }} />
+                          <Button onClick={handleNext} sx={{ mr: 1 }}>
+                            <span className="bg-sky-600 border-radius-booking w-36 text-white">Next</span>
+                          </Button>
                           {activeStep !== steps.length &&
                             (completed[activeStep] ? (
-                              <Typography
-                                className="text-gray-900"
-                                variant="caption"
-                                sx={{ display: "inline-block" }}
-                              >
+                              <Typography className="text-gray-900" variant="caption" sx={{ display: "inline-block" }}>
                                 Step {activeStep + 1} already completed
                               </Typography>
                             ) : (
                               <Button onClick={handleComplete}>
-                                {completedSteps() === totalSteps() - 1 ? "Finish" : "Complete Step"}
+                                <span className="bg-sky-600 border-radius-booking w-36 text-white">
+                                  {completedSteps() === totalSteps() - 1 ? "Finish" : "Complete Step"}
+                                </span>
                               </Button>
                             ))}
                         </Box>
                       </div>
                     ) : activeStep == 2 ? (
                       <div>
-                        <Typography
-                          variant="h4"
-                          className="text-gray-900 flex justify-center"
-                          sx={{ mt: 2, mb: 1, py: 1 }}
-                        >
+                        <Typography variant="h4" className="text-gray-900 flex justify-center" sx={{ mt: 2, mb: 1, py: 1 }}>
                           Notification
                         </Typography>
                         <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
-                          <Button color="inherit" onClick={handleBack} sx={{ mr: 1 }}>
-                            Back
-                          </Button>
+                          
                           <Box sx={{ flex: "1 1 auto" }} />
+                          <Button onClick={handleBack} sx={{ mr: 1 }}>
+                            <span className="bg-gray-600 border-radius-booking w-36 text-white">Back</span>
+                          </Button>
                           {activeStep !== steps.length &&
                             (completed[activeStep] ? (
-                              <Typography
-                                className="text-gray-900"
-                                variant="caption"
-                                sx={{ display: "inline-block" }}
-                              >
+                              <Typography className="text-gray-900" variant="caption" sx={{ display: "inline-block" }}>
                                 Step {activeStep + 1} already completed
                               </Typography>
                             ) : (
-                              <Button onClick={handleComplete}>
-                                {completedSteps() === totalSteps() - 1 ? "Finish" : "Complete Step"}
-                              </Button>
+                              <div>
+                                <Button onClick={handleComplete}>
+                                  <span className="bg-sky-600 border-radius-booking w-36 text-white">
+                                    {completedSteps() === totalSteps() - 1 ? "Finish" : "Complete Step"}
+                                  </span>
+                                </Button>
+                              </div>
                             ))}
                         </Box>
                       </div>
@@ -330,5 +354,3 @@ function Booking() {
     </>
   );
 }
-
-export default Booking;

@@ -25,10 +25,6 @@ function Home() {
     }
   };
 
-  // if (!featured) {
-  //   return <Loading />;
-  // }
-
   return (
     <>
       <Helmet>
