@@ -28,21 +28,26 @@ export default function MovieDay() {
   return (
     <div className="grid grid-cols-3 mt-4">
       <div className="col-span-2">
-        <img className="object-contain" src={URL_IMAGE + movie?.thumail} />
+        <img className="object-fill h-1/3" src={URL_IMAGE + movie?.thumail} />
       </div>
       <div className="ml-5">
         <p>H</p>
         {movieDay &&
           movieDay.map((item, index) => (
             <div key={index} className="video-meta">
-              <p className="video-meta-title">{item.showDate}</p>
-              <div className="video-meta-genres">
-                {item.lstShowTime.map((showTime: any, index) => (
-                  <div key={index} className="video-meta-genre">
-                    <p>{showTime}</p>
+              <p className="video-meta-title">{item.roomName}</p>
+              {item.lstSubMovied.map((sub, i) => (
+                <div key={i}>
+                  <p className="video-meta-title">{sub.showDate}</p>
+                  <div className="video-meta-genres ml-10">
+                    {sub.lstShowTime.map((showTime: any, index) => (
+                      <div key={index} className="video-meta-genre">
+                        <p>{showTime}</p>
+                      </div>
+                    ))}
                   </div>
-                ))}
-              </div>
+                </div>
+              ))}
             </div>
           ))}
       </div>

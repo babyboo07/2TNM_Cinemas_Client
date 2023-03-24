@@ -23,6 +23,9 @@ function App() {
         
         <Route path="/booking" element={<Booking />} />
 
+        
+        <Route path="/movie/booking/:movieId" element={<Booking />} />
+
         <Route path="*" element={<E404 />} />
       </Routes>
 
