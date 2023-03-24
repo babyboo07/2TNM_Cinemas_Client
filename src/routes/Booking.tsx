@@ -101,8 +101,11 @@ function Booking() {
       </Helmet>
       <div className="bg-white">
         <div className="container mx-auto">
-          <div className="text-gray-900">Movie Detail</div>
-          <div>
+          <div className="text-gray-900 pt-6">
+            <div>CGV Vincom Nguyễn Chí Thanh | Cinema 5 | Số ghế (88/111)</div>
+            <div>24/03/2023 20:40 ~ 24/03/2023 23:01</div>
+          </div>
+          <div className="pt-3">
             <Box sx={{ width: "100%" }}>
               <Stepper nonLinear activeStep={activeStep}>
                 {steps.map((label, index) => (
@@ -135,21 +138,13 @@ function Booking() {
                         >
                           People/Seat
                         </Typography>
-                        
+                        <div className="flex justify-center pb-5 pl-10">
+                          <p className="bg-gray-500 w-80 h-2 rounded-t-3xl"></p>
+                        </div>
                         {rows}
                         <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
-                          <Button
-                            color="inherit"
-                            disabled={activeStep === 0}
-                            onClick={handleBack}
-                            sx={{ mr: 1 }}
-                          >
-                            Back
-                          </Button>
                           <Box sx={{ flex: "1 1 auto" }} />
-                          <Button onClick={handleNext} sx={{ mr: 1 }}>
-                            Next
-                          </Button>
+                          <Button onClick={handleNext} sx={{ mr: 1 }}></Button>
                           {activeStep !== steps.length &&
                             (completed[activeStep] ? (
                               <Typography
@@ -160,7 +155,7 @@ function Booking() {
                                 Step {activeStep + 1} already completed
                               </Typography>
                             ) : (
-                              <Button onClick={handleComplete}>
+                              <Button className="" onClick={handleComplete}>
                                 {completedSteps() === totalSteps() - 1 ? "Finish" : "Complete Step"}
                               </Button>
                             ))}
@@ -173,16 +168,111 @@ function Booking() {
                           className="text-gray-900 flex justify-center"
                           sx={{ mt: 2, mb: 1, py: 1 }}
                         >
-                          Payment
+                          Confirm
                         </Typography>
+                        <div className="grid grid-cols-2 gap-2">
+                          <div className="ticketContainer">
+                            <div className="ticket border w-full">
+                              <div className="ticketTitle">Cinema XXV</div>
+                              <hr className="w-full" />
+                              <div className="ticketDetail">
+                                <div>Movie:&ensp; Kong VS Goatzilla</div>
+                                <div>User:&ensp; David Mai</div>
+                                <div>Studio:&nbsp; 5</div>
+                                <div>Time:&emsp; 19:20</div>
+                                <div>
+                                  Seat:&emsp;
+                                  <span className="[word-wrap: break-word] my-[5px] mr-4 h-[32px] cursor-pointer items-center justify-between rounded-[16px] bg-green-500 py-0 px-[12px] text-[13px] font-normal normal-case leading-loose text-white shadow-none transition-[opacity] duration-300 ease-linear hover:!shadow-none active:bg-[#cacfd1] ">
+                                    F-1
+                                  </span>
+                                </div>
+                              </div>
+                              <div className="ticketRip">
+                                <div className="circleLeft"></div>
+                                <div className="ripLine"></div>
+                                <div className="circleRight"></div>
+                              </div>
+                              <div className="ticketSubDetail">
+                                <div className="code">Total</div>
+                                <div className="date">20$</div>
+                              </div>
+                            </div>
+                          </div>
+                          <div className="px-5">
+                            <div className="pb-7">
+                              <h4 className=" text-xl text-gray-900">Final Payment</h4>
+                            </div>
+
+                            <div className="flex items-center mb-4">
+                              <input
+                                id="default-radio-1"
+                                type="radio"
+                                value=""
+                                name="default-radio"
+                                className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 "
+                              />
+                              <label
+                                htmlFor="default-radio-1"
+                                className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                              >
+                                ATM card (Vietnam Domestic)
+                              </label>
+                            </div>
+                            <div className="flex items-center mb-4">
+                              <input
+                                checked
+                                id="default-radio-2"
+                                type="radio"
+                                value=""
+                                name="default-radio"
+                                className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 "
+                              />
+                              <label
+                                htmlFor="default-radio-2"
+                                className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                              >
+                                Credit Card (Visa, Master, American Express, JCB)
+                              </label>
+                            </div>
+                            <div className="flex items-center mb-4">
+                              <input
+                                checked
+                                id="default-radio-2"
+                                type="radio"
+                                value=""
+                                name="default-radio"
+                                className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 "
+                              />
+                              <label
+                                htmlFor="default-radio-2"
+                                className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                              >
+                                ZaloPay
+                              </label>
+                            </div>
+                            <div className="flex items-center mb-4">
+                              <input
+                                checked
+                                id="default-radio-2"
+                                type="radio"
+                                value=""
+                                name="default-radio"
+                                className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 "
+                              />
+                              <label
+                                htmlFor="default-radio-2"
+                                className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                              >
+                                Momo
+                              </label>
+                            </div>
+                          </div>
+                        </div>
                         <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
-                          <Button color="inherit" onClick={handleBack} sx={{ mr: 1 }}>
+                          <Button className="text-sky-500" onClick={handleBack} sx={{ mr: 1 }}>
                             Back
                           </Button>
                           <Box sx={{ flex: "1 1 auto" }} />
-                          <Button onClick={handleNext} sx={{ mr: 1 }}>
-                            Next
-                          </Button>
                           {activeStep !== steps.length &&
                             (completed[activeStep] ? (
                               <Typography
@@ -213,9 +303,6 @@ function Booking() {
                             Back
                           </Button>
                           <Box sx={{ flex: "1 1 auto" }} />
-                          <Button onClick={handleNext} sx={{ mr: 1 }}>
-                            Next
-                          </Button>
                           {activeStep !== steps.length &&
                             (completed[activeStep] ? (
                               <Typography
