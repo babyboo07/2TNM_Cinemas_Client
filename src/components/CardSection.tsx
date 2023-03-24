@@ -44,7 +44,13 @@ function CardSection({ title, items }: any) {
     <div className="movie-section">
       <p className="movie-section-title">{title}</p>
 
-      <Swiper autoplay={{ delay: 5000 }} navigation={true} modules={[Navigation, Autoplay]} className="movie-section-row" breakpoints={breakpoints}>
+      <Swiper
+        autoplay={{ delay: 5000 }}
+        navigation={true}
+        modules={[Navigation, Autoplay]}
+        className="movie-section-row"
+        breakpoints={breakpoints}
+      >
         {items.map((item: any) => (
           <div>
             <SwiperSlide key={item.id}>
@@ -56,7 +62,7 @@ function CardSection({ title, items }: any) {
                 }}
               >
                 <div className="movie-card-content">
-                  {/* <i className="fa-solid fa-play"></i> */}
+                  <i className="fa-solid fa-ticket"></i>
                   <p>{item.titile}</p>
                 </div>
               </Link>

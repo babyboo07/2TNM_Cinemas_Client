@@ -66,7 +66,7 @@ function Booking() {
 
   const handleGenerate = (row: String) => {
     const column = [];
-    for (let i = 1; i <= 14; i++) {
+    for (let i = 1; i <= 12; i++) {
       column.push(
         <button
           onClick={(e) => selectSeat(row + "-" + i)}
@@ -135,6 +135,7 @@ function Booking() {
                         >
                           People/Seat
                         </Typography>
+                        
                         {rows}
                         <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
                           <Button
