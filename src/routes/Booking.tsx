@@ -7,6 +7,10 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import React, { Fragment, useState } from "react";
 import { StepButton } from "@mui/material";
+import { IBookingMovie, IMovie, IMovieDayDetail, ISeatedBooking } from "../Util/FormInit";
+import { useParams } from "react-router-dom";
+import { getListMovieById, getMovieDayById, getSeatedBookingById, saveBookingOrder } from "../API/movies/moviesUtil";
+import MovieDay from "./MovieDay";
 
 const steps = ["People/Seats", "Payment", "Notification"];
 
@@ -15,13 +19,44 @@ export default function Booking() {
   const [completed, setCompleted] = useState<{
     [k: number]: boolean;
   }>({});
+  const { movieId } = useParams();
 
   const [lstSeat, setLstSeat] = useState<any>({ seats: [] });
+  const [movieDetail, setMovieDetail] = useState<IMovie>();
+  const [movieDay, setMovieDay] = useState<IMovieDayDetail>();
+  const [messageAfterBooking, setMessageAfterBooking] = useState<String>("");
+  const [seated, setSeated] = useState<ISeatedBooking[]>([]);
+
   const rows = [];
+
+  React.useEffect(() => {
+    fetchData();
+  }, []);
 
   React.useEffect(() => {
     setActiveStep(0);
   }, [lstSeat]);
+
+  const fetchData = async () => {
+    const movieDay: IMovieDayDetail = await getMovieDayById(Number(movieId));
+    const seated: ISeatedBooking[] = await getSeatedBookingById(Number(movieId));
+
+    console.log(seated);
+
+    if (seated) {
+      setSeated(seated);
+    }
+
+    if (movieDay) {
+      const dataMovie: IMovie = await getListMovieById(Number(movieId));
+
+      if (dataMovie) {
+        setMovieDetail(dataMovie);
+      }
+
+      setMovieDay(movieDay);
+    }
+  };
 
   const totalSteps = () => {
     return steps.length;
@@ -37,6 +72,18 @@ export default function Booking() {
 
   const allStepsCompleted = () => {
     return completedSteps() === totalSteps();
+  };
+
+  const CheckSeated = (seatName: String) => {
+    const checkSeated: ISeatedBooking[] = seated.filter((x) => x.seatName === seatName);
+
+    console.log(checkSeated);
+
+    if (checkSeated.length > 0) {
+      return true;
+    } else {
+      return false;
+    }
   };
 
   const handleNext = () => {
@@ -62,7 +109,36 @@ export default function Booking() {
     newCompleted[activeStep] = true;
     setCompleted(newCompleted);
     handleNext();
-    handleClick();
+  };
+
+  const handleOrder = async () => {
+    let today = new Date();
+    let date = today.getFullYear() + "-" + Number(today.getMonth() + 1) + "-" + today.getDate();
+    console.log(date);
+
+    const dataBooking: IBookingMovie = {
+      lstSeat: lstSeat.seats,
+      movieId: movieDetail?.id != undefined ? movieDetail?.id : 1,
+      movieDayId: movieDay?.id != undefined ? movieDay?.id : 1,
+      roomId: movieDay?.roomId != undefined ? movieDay?.roomId : 1,
+      seatId: 1,
+      orderDate: String(date),
+      discount: 1,
+      status: 1,
+      userId: "32d27f97bf2648f6b08034dda0b6e37a",
+    };
+
+    console.log(dataBooking);
+
+    const result = await saveBookingOrder(dataBooking);
+
+    if (result) {
+      setMessageAfterBooking("Thank you for using the service");
+    } else {
+      setMessageAfterBooking("Can't book tickets at the moment, please try again later");
+    }
+
+    handleComplete();
   };
 
   const handleReset = () => {
@@ -88,14 +164,22 @@ export default function Booking() {
     const column = [];
     const background = rowNumber >= 69 && rowNumber <= 73 ? "bg-red-500 " : "border text-gray-900 ";
     for (let i = 1; i <= 12; i++) {
-      column.push(
-        <button
-          onClick={async (e) => await selectSeat(row + "-" + i)}
-          className={`${"text-sm w-12 m-1"} ${changeBackgroundSeat(row + "-" + i) ? "bg-amber-600 text-white" : background}`}
-        >
-          {row + " - " + i}
-        </button>
-      );
+      if (CheckSeated(row + "-" + i)) {
+        column.push(
+          <button disabled={true} className={`${"text-sm w-12 m-1"} ${"bg-zinc-800 text-white"}`}>
+            {row + " - " + i}
+          </button>
+        );
+      } else {
+        column.push(
+          <button
+            onClick={async (e) => await selectSeat(row + "-" + i)}
+            className={`${"text-sm w-12 m-1"} ${changeBackgroundSeat(row + "-" + i) ? "bg-amber-800 text-white" : background}`}
+          >
+            {row + " - " + i}
+          </button>
+        );
+      }
     }
     return column;
   };
@@ -123,10 +207,6 @@ export default function Booking() {
     );
   }
 
-  const handleClick = () => {
-    console.log(lstSeat.seats);
-  };
-
   return (
     <>
       <Helmet>
@@ -135,8 +215,9 @@ export default function Booking() {
       <div className="bg-white">
         <div className="container mx-auto">
           <div className="text-gray-900 pt-6">
-            <div>CGV Vincom Nguyễn Chí Thanh | Cinema 5 | Số ghế (88/111)</div>
-            <div>24/03/2023 20:40 ~ 24/03/2023 23:01</div>
+            <div>CGV Vincom Nguyễn Chí Thanh | {movieDay?.roomName}| Số ghế (88/111)</div>
+            <div>Movie: {movieDetail?.titile}</div>
+            <div>{movieDay?.showDate + " " + movieDay?.showTime}</div>
           </div>
           <div className="pt-3">
             <Box sx={{ width: "100%" }}>
@@ -164,19 +245,16 @@ export default function Booking() {
                   <Fragment>
                     {activeStep == 0 ? (
                       <div>
-                        <Typography variant="h4" className="text-gray-900 flex justify-center" sx={{ mt: 2, mb: 1, py: 1 }}>
+                        <Typography variant="h4" className="text-gray-900 flex justify-center pl-20" sx={{ mt: 2, mb: 1, py: 1 }}>
                           People/Seat
                         </Typography>
-
+                        <div className="flex justify-center pb-5 pl-20">
+                          <p className="bg-gray-500 w-96 h-2 rounded-t-3xl"></p>
+                        </div>
                         <div>{rows}</div>
                         <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
-                          <Button color="inherit" disabled={activeStep === 0} onClick={handleBack} sx={{ mr: 1 }}>
-                            Back
-                          </Button>
                           <Box sx={{ flex: "1 1 auto" }} />
-                          <Button onClick={handleNext} sx={{ mr: 1 }}>
-                            <span className="bg-sky-600 border-radius-booking w-36 text-white">Next</span>
-                          </Button>
+
                           {activeStep !== steps.length &&
                             (completed[activeStep] ? (
                               <Typography className="text-gray-900" variant="caption" sx={{ display: "inline-block" }}>
@@ -202,15 +280,18 @@ export default function Booking() {
                               <div className="ticketTitle">Cinema XXV</div>
                               <hr className="w-full" />
                               <div className="ticketDetail">
-                                <div>Movie:&ensp; Kong VS Goatzilla</div>
+                                <div>Movie:&ensp; {movieDetail?.titile}</div>
                                 <div>User:&ensp; David Mai</div>
-                                <div>Studio:&nbsp; 5</div>
-                                <div>Time:&emsp; 19:20</div>
+                                <div>Studio:&nbsp; {movieDay?.roomName}</div>
+                                <div>Time:&emsp; {movieDay?.showTime}</div>
                                 <div>
                                   Seat:&emsp;
-                                  <span className="[word-wrap: break-word] my-[5px] mr-4 h-[32px] cursor-pointer items-center justify-between rounded-[16px] bg-green-500 py-0 px-[12px] text-[13px] font-normal normal-case leading-loose text-white shadow-none transition-[opacity] duration-300 ease-linear hover:!shadow-none active:bg-[#cacfd1] ">
-                                    F-1
-                                  </span>
+                                  {lstSeat.seats &&
+                                    lstSeat.seats.map((item: String) => (
+                                      <span className="[word-wrap: break-word] my-[5px] mr-4 h-[32px] cursor-pointer items-center justify-between rounded-[16px] bg-green-500 py-0 px-[12px] text-[13px] font-normal normal-case leading-loose text-white shadow-none transition-[opacity] duration-300 ease-linear hover:!shadow-none active:bg-[#cacfd1] ">
+                                        {item}
+                                      </span>
+                                    ))}
                                 </div>
                               </div>
                               <div className="ticketRip">
@@ -220,16 +301,16 @@ export default function Booking() {
                               </div>
                               <div className="ticketSubDetail">
                                 <div className="code">Total</div>
-                                <div className="date">20$</div>
+                                <div className="date">{lstSeat.seats.length * 5}$</div>
                               </div>
                             </div>
                           </div>
                           <div className="px-5">
                             <div className="pb-7">
-                              <h4 className=" text-xl text-gray-900">Final Payment</h4>
+                              <h4 className=" text-xl text-gray-900">Pay at the counter</h4>
                             </div>
 
-                            <div className="flex items-center mb-4">
+                            {/* <div className="flex items-center mb-4">
                               <input
                                 id="default-radio-1"
                                 type="radio"
@@ -237,10 +318,7 @@ export default function Booking() {
                                 name="default-radio"
                                 className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 "
                               />
-                              <label
-                                htmlFor="default-radio-1"
-                                className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-                              >
+                              <label htmlFor="default-radio-1" className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">
                                 ATM card (Vietnam Domestic)
                               </label>
                             </div>
@@ -253,10 +331,7 @@ export default function Booking() {
                                 name="default-radio"
                                 className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 "
                               />
-                              <label
-                                htmlFor="default-radio-2"
-                                className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-                              >
+                              <label htmlFor="default-radio-2" className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">
                                 Credit Card (Visa, Master, American Express, JCB)
                               </label>
                             </div>
@@ -269,10 +344,7 @@ export default function Booking() {
                                 name="default-radio"
                                 className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 "
                               />
-                              <label
-                                htmlFor="default-radio-2"
-                                className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-                              >
+                              <label htmlFor="default-radio-2" className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">
                                 ZaloPay
                               </label>
                             </div>
@@ -285,22 +357,16 @@ export default function Booking() {
                                 name="default-radio"
                                 className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 "
                               />
-                              <label
-                                htmlFor="default-radio-2"
-                                className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-                              >
+                              <label htmlFor="default-radio-2" className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">
                                 Momo
                               </label>
-                            </div>
+                            </div> */}
                           </div>
                         </div>
                         <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
-                          <Button className="text-sky-500" onClick={handleBack} sx={{ mr: 1 }}>
-                            Back
-                          </Button>
                           <Box sx={{ flex: "1 1 auto" }} />
-                          <Button onClick={handleNext} sx={{ mr: 1 }}>
-                            <span className="bg-sky-600 border-radius-booking w-36 text-white">Next</span>
+                          <Button onClick={handleBack} sx={{ mr: 1 }}>
+                            <span className="bg-gray-600 border-radius-booking w-36 text-white">Back</span>
                           </Button>
                           {activeStep !== steps.length &&
                             (completed[activeStep] ? (
@@ -308,8 +374,8 @@ export default function Booking() {
                                 Step {activeStep + 1} already completed
                               </Typography>
                             ) : (
-                              <Button onClick={handleComplete}>
-                                <span className="bg-sky-600 border-radius-booking w-36 text-white">
+                              <Button onClick={handleOrder} disabled={lstSeat.seats.length > 0 ? false : true}>
+                                <span className={`${lstSeat.seats.length > 0 ? "bg-sky-600 " : "bg-gray-500"} ${"border-radius-booking w-36 text-white"} `}>
                                   {completedSteps() === totalSteps() - 1 ? "Finish" : "Complete Step"}
                                 </span>
                               </Button>
@@ -322,7 +388,6 @@ export default function Booking() {
                           Notification
                         </Typography>
                         <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
-                          
                           <Box sx={{ flex: "1 1 auto" }} />
                           <Button onClick={handleBack} sx={{ mr: 1 }}>
                             <span className="bg-gray-600 border-radius-booking w-36 text-white">Back</span>
