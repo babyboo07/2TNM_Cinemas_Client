@@ -8,6 +8,8 @@ import Movie from "./routes/Movie";
 import E404 from "./routes/E404";
 import Booking from "./routes/Booking";
 import MovieDay from "./routes/MovieDay";
+import Contact from "./routes/Contact";
+import AboutUs from "./routes/AboutUs";
 
 function App() {
   return (
@@ -22,6 +24,10 @@ function App() {
         <Route path="/movie/booking/time/:movieId" element={<MovieDay />} />
         
         <Route path="/booking" element={<Booking />} />
+
+        <Route path="/contact" element={<Contact />} />
+
+        <Route path="/aboutus" element={<AboutUs />} />
 
         
         <Route path="/movie/booking/:movieId" element={<Booking />} />
