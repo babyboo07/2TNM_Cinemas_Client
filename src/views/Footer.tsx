@@ -3,7 +3,7 @@ import conf from "../Config";
 
 function Footer() {
   return (
-    <footer className="footer pt-5">
+    <footer className="footer pt-5 bg-[#2d2d2d]">
       <div className="mx-auto w-full container p-4 sm:p-6">
         <div className="md:flex md:justify-between">
           <div className="mb-6 md:mb-0">

@@ -8,7 +8,7 @@ import Typography from "@mui/material/Typography";
 import React, { Fragment, useState } from "react";
 import { StepButton } from "@mui/material";
 import { IBookingMovie, IMovie, IMovieDayDetail, ISeatedBooking } from "../Util/FormInit";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import {
   getListMovieById,
   getMovieDayById,
@@ -237,11 +237,13 @@ export default function Booking() {
                 {allStepsCompleted() ? (
                   <Fragment>
                     <Typography className="text-gray-900" sx={{ mt: 2, mb: 1 }}>
-                      All steps completed - you&apos;re finished
+                      <div className="text-gray-900">{messageAfterBooking}</div>
                     </Typography>
                     <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
                       <Box sx={{ flex: "1 1 auto" }} />
-                      <Button onClick={handleReset}>Reset</Button>
+                      <Link to={"/"} className="text-sky-600">
+                        Home
+                      </Link>
                     </Box>
                   </Fragment>
                 ) : (
@@ -442,14 +444,9 @@ export default function Booking() {
                         >
                           Notification
                         </Typography>
-                        {messageAfterBooking}
+                        <div className="text-gray-900">{messageAfterBooking}</div>
                         <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
                           <Box sx={{ flex: "1 1 auto" }} />
-                          <Button onClick={handleBack} sx={{ mr: 1 }}>
-                            <span className="bg-gray-600 border-radius-booking w-36 text-white">
-                              Back
-                            </span>
-                          </Button>
                           {activeStep !== steps.length &&
                             (completed[activeStep] ? (
                               <Typography
@@ -461,13 +458,15 @@ export default function Booking() {
                               </Typography>
                             ) : (
                               <div>
-                                <Button onClick={handleComplete}>
-                                  <span className="bg-sky-600 border-radius-booking w-36 text-white">
-                                    {completedSteps() === totalSteps() - 1
-                                      ? "Finish"
-                                      : "Complete Step"}
-                                  </span>
-                                </Button>
+                                <Link to={"/"}>
+                                  <Button onClick={handleComplete}>
+                                    <span className="bg-sky-600 border-radius-booking w-36 text-white">
+                                      {completedSteps() === totalSteps() - 1
+                                        ? "Finish"
+                                        : "Complete Step"}
+                                    </span>
+                                  </Button>
+                                </Link>
                               </div>
                             ))}
                         </Box>

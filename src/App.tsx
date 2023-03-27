@@ -10,11 +10,15 @@ import Booking from "./routes/Booking";
 import MovieDay from "./routes/MovieDay";
 import Contact from "./routes/Contact";
 import AboutUs from "./routes/AboutUs";
+import SignIn from "./routes/authentication/Sign-in";
 // import AboutUs from "./routes/AboutUs";
 
 function App() {
   return (
     <>
+      <Routes>
+        <Route path="/signin" element={<SignIn />} />
+      </Routes>
       <TopBar />
 
       <Routes>
@@ -23,7 +27,7 @@ function App() {
         <Route path="/movie/:id" element={<Movie />} />
 
         <Route path="/movie/booking/time/:movieId" element={<MovieDay />} />
-        
+
         <Route path="/booking" element={<Booking />} />
 
         <Route path="/contact" element={<Contact />} />
