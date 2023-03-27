@@ -32,7 +32,7 @@ function Movie() {
       <Helmet>
         <title>{data.titile + " - " + data.releaseDate}</title>
       </Helmet>
-      <div className="container">
+      <div className="container mx-auto">
         <div className="video-frame">
           <iframe src={"https://www.youtube.com/embed/" + data?.trailer}></iframe>
         </div>
