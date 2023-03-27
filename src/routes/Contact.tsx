@@ -4,47 +4,6 @@ import conf from "../Config";
 import { Fragment, useState } from "react";
 
 function Contact() {
-  const [activeStep, setActiveStep] = useState(0);
-  const [completed, setCompleted] = useState<{
-    [k: number]: boolean;
-  }>({});
-  const rows = [];
-  const cols = [];
-
-  const handleGenerate = (row: String) => {
-    const column = [];
-    for (let i = 1; i <= 12; i++) {
-      column.push(
-        <button
-          onClick={(e) => selectSeat(row + "-" + i)}
-          className="text-gray-900 border w-12 m-1"
-        >
-          {row + "-" + i}
-        </button>
-      );
-    }
-    return column;
-  };
-
-  for (let i = 65; i <= 75; i++) {
-    rows.push(
-      <div className="container mx-auto">
-        <div className="grid grid-cols-4">
-          <p className="text-gray-900 flex justify-center">
-            {String.fromCharCode(i)}
-          </p>
-          <div className="col-span-3">
-            {handleGenerate(String.fromCharCode(i))}
-          </div>
-        </div>
-      </div>
-    );
-  }
-
-  const selectSeat = (seats: any) => {
-    console.log(seats);
-  };
-
   return (
     <>
       <Helmet>
@@ -52,8 +11,8 @@ function Contact() {
       </Helmet>
       <div className="bg-white">
         <div className="container mx-auto">
-          <div className="text-red-600 pt-10 relative h-30 ...">
-            <div className="absolute inset-x-0 top-0 h-16 ... text-3xl ... text-center font-bold ">
+          <div className="text-red-600 pt-10 relative h-30 ">
+            <div className="absolute inset-x-0 top-0 h-16  text-3xl  text-center font-bold ">
               Liên hệ với chúng tôi
             </div>
             <div></div>
@@ -61,28 +20,21 @@ function Contact() {
           <div className="grid grid-cols-2 gap-1">
             <div className="">
               <div className="text-gray-900 pt-6  ">
-                <div className="font-bold ... hover:text-sky-400">
-                  TRỤ SỞ CHÍNH{" "}
-                </div>
+                <div className="font-bold  hover:text-sky-400">TRỤ SỞ CHÍNH </div>
                 <div>
-                  Tầng 2, Rivera Park Saigon - Số 7/28 Thành Thái,<br></br>{" "}
-                  P.14, Q.10, Thành phố Hồ Chí Minh.
+                  Tầng 2, Rivera Park Saigon - Số 7/28 Thành Thái,<br></br> P.14, Q.10, Thành phố Hồ
+                  Chí Minh.
                 </div>
               </div>
 
               <div className="text-gray-900 pt-6">
-                <div className="font-bold ... hover:text-sky-400">
-                  DỊCH VỤ KHÁCH HÀNG
-                </div>
+                <div className="font-bold  hover:text-sky-400">DỊCH VỤ KHÁCH HÀNG</div>
                 <div>
                   <div> Hotline: 1900 6017</div>
                   <div> Giờ làm việc: 8:00 - 22:00</div>
                   <div> Tất cả các ngày bao gồm cả Lễ Tết</div>
                   Email hỗ trợ:
-                  <a
-                    href="#"
-                    className="no-underline text-red-500 hover:underline ..."
-                  >
+                  <a href="#" className="no-underline text-red-500 hover:underline ">
                     {" "}
                     hoidap@cgv.vn
                   </a>
@@ -90,35 +42,27 @@ function Contact() {
               </div>
 
               <div className="text-gray-900 pt-6">
-                <div className="font-bold ... hover:text-sky-400">
-                  LIÊN HỆ QUẢNG CÁO
-                </div>
+                <div className="font-bold  hover:text-sky-400">LIÊN HỆ QUẢNG CÁO</div>
                 <div>
                   <div> Phòng kinh doanh: +84-28-3636 57 57</div>
                   <div> Ext: 278 (Ms. Thúy An) </div>
                   <div> Hotline: 0335400414</div>
                   Email:
-                  <a
-                    href="#"
-                    className="no-underline text-red-500 hover:underline ..."
-                  >
+                  <a href="#" className="no-underline text-red-500 hover:underline ">
                     ad.cgv@cj.net
                   </a>
                 </div>
               </div>
 
               <div className="text-gray-900 pt-6">
-                <div className="font-bold ... hover:text-sky-400">
+                <div className="font-bold  hover:text-sky-400">
                   LIÊN HỆ HỢP TÁC TIẾP THỊ TRUYỀN THÔNG THƯƠNG HIỆU
                 </div>
                 <div>
                   <div> Phòng Cinema Marketing: +84-28-3636 57 57</div>
                   <div> TExt: 302 (Mr. Cường)</div>
                   Email:
-                  <a
-                    href="#"
-                    className="no-underline text-red-500 hover:underline ..."
-                  >
+                  <a href="#" className="no-underline text-red-500 hover:underline ">
                     {" "}
                     phuccuong.nguyen@cj.net
                   </a>
@@ -129,9 +73,9 @@ function Contact() {
 
             <div>
               <div className="text-gray-900 pt-6">
-                <div className="font-bold ... hover:text-sky-400">
-                  LIÊN HỆ MUA VÉ NHÓM, THẺ QUÀ TẶNG, TỔ CHỨC SỰ KIỆN, THUÊ RẠP,…
-                  THAM GIA CHƯƠNG TRÌNH GIÁO DỤC CÙNG ĐIỆN ẢNH
+                <div className="font-bold  hover:text-sky-400">
+                  LIÊN HỆ MUA VÉ NHÓM, THẺ QUÀ TẶNG, TỔ CHỨC SỰ KIỆN, THUÊ RẠP,… THAM GIA CHƯƠNG
+                  TRÌNH GIÁO DỤC CÙNG ĐIỆN ẢNH
                 </div>
                 <div>
                   <div> Phòng kinh doanh:</div>
@@ -141,10 +85,7 @@ function Contact() {
                     <p>Tele: 038 395 3114 (Ms Uyên)</p>
                     <p>
                       Email:{" "}
-                      <a
-                        href="#"
-                        className="no-underline text-red-500 hover:underline ..."
-                      >
+                      <a href="#" className="no-underline text-red-500 hover:underline ">
                         uyen.nguyen1@cj.net
                       </a>
                     </p>
@@ -155,10 +96,7 @@ function Contact() {
                     <p>Tele. 0985300835 (Ms Lan Anh)</p>
                     <p>
                       Email:{" "}
-                      <a
-                        href="#"
-                        className="no-underline text-red-500 hover:underline ..."
-                      >
+                      <a href="#" className="no-underline text-red-500 hover:underline ">
                         anh.nguyen@cj.net
                       </a>
                     </p>
@@ -169,10 +107,7 @@ function Contact() {
                     <p>Tele: 0974464212(Mr Xuan Huy)</p>
                     <p>
                       Email:{" "}
-                      <a
-                        href="#"
-                        className="no-underline text-red-500 hover:underline ..."
-                      >
+                      <a href="#" className="no-underline text-red-500 hover:underline ">
                         huy.vu@cj.net
                       </a>
                     </p>
@@ -181,16 +116,13 @@ function Contact() {
               </div>
 
               <div className="text-gray-900 pt-6">
-                <div className="font-bold ... hover:text-sky-400">
+                <div className="font-bold  hover:text-sky-400">
                   LIÊN HỆ HỢP TÁC TRUYỀN THÔNG & TÀI TRỢ
                 </div>
                 <div>
                   <div> Phòng truyền thông: +84-28-3636-5757</div>
                   Email:
-                  <a
-                    href="#"
-                    className="no-underline text-red-500 hover:underline ..."
-                  >
+                  <a href="#" className="no-underline text-red-500 hover:underline ">
                     dieulinh.tran@cj.net
                   </a>
                 </div>

@@ -9,6 +9,7 @@ import E404 from "./routes/E404";
 import Booking from "./routes/Booking";
 import MovieDay from "./routes/MovieDay";
 import Contact from "./routes/Contact";
+import AboutUs from "./routes/AboutUs";
 // import AboutUs from "./routes/AboutUs";
 
 function App() {
@@ -27,9 +28,8 @@ function App() {
 
         <Route path="/contact" element={<Contact />} />
 
-        {/* <Route path="/aboutus" element={<AboutUs />} /> */}
+        <Route path="/aboutus" element={<AboutUs />} />
 
-        
         <Route path="/movie/booking/:movieId" element={<Booking />} />
 
         <Route path="*" element={<E404 />} />

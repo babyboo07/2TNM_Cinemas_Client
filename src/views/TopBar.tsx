@@ -46,20 +46,34 @@ function TopBar() {
           <Link to="/">
             <h3 className="item-nav-margin">Home</h3>
           </Link>
-          <h3 className="item-nav-margin">Movie</h3>
+          <Link to={""}>
+            <h3 className="item-nav-margin">Movie</h3>
+          </Link>
+          <Link to={"/aboutus"}>
+            <h3 className="item-nav-margin">About Us</h3>
+          </Link>
+          <Link to={"/contact"}>
+            <h3 className="item-nav-margin">Contact</h3>
+          </Link>
 
-          <h3 className="item-nav-margin">About Us</h3>
-
-          <h3 className="item-nav-margin">Contact</h3>
-
-          <input type="text" value={search} className="input-nav-margin" placeholder="Search" onChange={(e) => onChange(e)} />
+          <input
+            type="text"
+            value={search}
+            className="input-nav-margin"
+            placeholder="Search"
+            onChange={(e) => onChange(e)}
+          />
 
           <i className="fa-solid fa-search icon-nav-margin"></i>
 
           {search.length > 0 && results && (
             <div className="top-bar-dropdown">
               {results.map((result: any) => (
-                <Link to={"/" + result.type + "/" + result.id} onClick={() => onClick()} className="top-bar-dropitem">
+                <Link
+                  to={"/" + result.type + "/" + result.id}
+                  onClick={() => onClick()}
+                  className="top-bar-dropitem"
+                >
                   <i className="fa-solid fa-play-circle"></i>
                   <p className="title">{result.title}</p>
 
@@ -95,7 +109,11 @@ function TopBar() {
             {search.length > 0 &&
               results &&
               results.map((result: any) => (
-                <Link to={"/" + result.type + "/" + result.id} onClick={() => onClick()} className="mobile-search-item">
+                <Link
+                  to={"/" + result.type + "/" + result.id}
+                  onClick={() => onClick()}
+                  className="mobile-search-item"
+                >
                   <i className="fa-solid fa-play-circle"></i>
 
                   <p className="title">{result.title}</p>
