@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import { getListMovieById, getListMovieDayByMovieId } from "../API/movies/moviesUtil";
 import { IMovie, IMovieDay } from "../Util/FormInit";
@@ -26,31 +26,37 @@ export default function MovieDay() {
   };
 
   return (
-    <div className="grid grid-cols-3 mt-4">
-      <div className="col-span-2">
-        <img className="" src={URL_IMAGE + movie?.thumail} />
-      </div>
-      <div className="ml-5">
-        <p>H</p>
-        {movieDay &&
-          movieDay.map((item, index) => (
-            <div key={index} className="video-meta">
-              <p className="video-meta-title">{item.roomName}</p>
-              {item.lstSubMovied.map((sub, i) => (
-                <div key={i}>
-                  <p className="video-meta-title pl-10"></p>
-                  <div className="video-meta-genres pl-12">
-                  {sub.showDate}
-                    {sub.lstShowTime.map((showTime: any, index) => (
-                      <div key={index} className="video-meta-genre">
-                        <p>{showTime}</p>
-                      </div>
+    <div className="container mx-auto">
+      <div className="grid grid-cols-3 mt-4">
+        <div className="col-span-2">
+          <div className="container">
+            <img className="w-1/2" src={URL_IMAGE + movie?.thumail} />
+          </div>
+        </div>
+        <div className="ml-5">
+          <p>H</p>
+          {movieDay &&
+            movieDay.map((item, index) => (
+              <div key={index} className="video-meta">
+                <p className="video-meta-title">{item.roomName}</p>
+                {item.lstSubMovied.map((sub, i) => (
+                  <div key={i}>
+                    <p className="video-meta-title pl-10"></p>
+                    <div className="video-meta-genres pl-12">
+                    {sub.showDate}
+                    {sub.lstShowTime.map((itemSub: any, index) => (
+                      <Link key={index} to={"/movie/booking/" + itemSub.movieDayId} className="ml-2">
+                        <div className="video-meta-genre-show-time">
+                          <p>{itemSub.showTime}</p>
+                        </div>
+                      </Link>
                     ))}
+                    </div>
                   </div>
-                </div>
-              ))}
-            </div>
-          ))}
+                ))}
+              </div>
+            ))}
+        </div>
       </div>
     </div>
   );
