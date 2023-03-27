@@ -53,7 +53,8 @@ function Home() {
                 <p className="movie-hero-year">{featured.releaseDate}</p>
 
                 <p className="movie-hero-length">
-                  {Math.floor(Number(featured.runningTime) / 60)}h {Number(featured.runningTime) % 60}m
+                  {Math.floor(Number(featured.runningTime) / 60)}h{" "}
+                  {Number(featured.runningTime) % 60}m
                 </p>
               </div>
 
@@ -69,14 +70,26 @@ function Home() {
 
         {!movies ? (
           <div className="movie-section">
-            <p className="movie-section-title">Top Rated Movies 👑</p>
+            <p className="movie-section-title">Now Showing 👑</p>
 
             <div className="movie-section-loading">
               <i className="fa-solid fa-spinner-third"></i>
             </div>
           </div>
         ) : (
-          <CardSection title="Top Rated Movies 👑" items={movies} />
+          <CardSection title="Now Showing 👑" items={movies} />
+        )}
+
+        {!movies ? (
+          <div className="movie-section">
+            <p className="movie-section-title">Coming Soon 🔥</p>
+
+            <div className="movie-section-loading">
+              <i className="fa-solid fa-spinner-third"></i>
+            </div>
+          </div>
+        ) : (
+          <CardSection title="Coming Soon 🔥" items={movies} />
         )}
       </div>
     </>

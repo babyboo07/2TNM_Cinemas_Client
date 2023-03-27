@@ -1,4 +1,21 @@
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { handleLogin } from "../../API/authentication/authUtil";
+
 export default function SignIn() {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+  const [rememberMe, setRememberMe] = useState<Boolean>(true);
+
+  const onSubmitLogin = (data: any) => {
+    var form_data = new FormData();
+    form_data.append("username", data.username);
+    form_data.append("password", data.password);
+    handleLogin(form_data);
+  };
   return (
     <section className="flex flex-col md:flex-row h-screen items-center">
       <div className="bg-indigo-600 hidden lg:block w-full md:w-1/2 xl:w-2/3 h-screen">
@@ -16,28 +33,30 @@ export default function SignIn() {
           <h1 className="text-xl md:text-2xl font-bold leading-tight mt-12 text-gray-900">
             Log In To Your Account
           </h1>
-          <form className="mt-6" action="#" method="POST">
+          <form className="mt-6" onSubmit={handleSubmit(onSubmitLogin)} action="#" method="POST">
             <div>
-              <label className="block text-gray-700">Email Address</label>
+              <label className="block text-gray-700">Email Address Or Username</label>
               <input
-                type="email"
-                name=""
-                id=""
-                placeholder="Enter Email Address"
+                id="username"
+                placeholder="Enter Email Address Or Username"
                 className="w-full text-gray-900 px-4 py-3 rounded-lg bg-gray-200 mt-2 border focus:border-blue-500 focus:bg-white focus:outline-none"
+                {...register("username", {
+                  required: true,
+                })}
               />
+              {errors.username && <p className="text-red-500">Username is required</p>}
             </div>
             <div className="mt-4">
               <label className="block text-gray-700">Password</label>
               <input
                 type="password"
-                name=""
-                id=""
+                id="password"
                 placeholder="Enter Password"
                 className="w-full text-gray-900 px-4 py-3 rounded-lg bg-gray-200 mt-2 border focus:border-blue-500
                 focus:bg-white focus:outline-none"
-                required
+                {...register("password", { required: true })}
               />
+              {errors.password && <p className="text-red-500">Password is required</p>}
             </div>
             <div className="text-right mt-2">
               <a
@@ -59,7 +78,7 @@ export default function SignIn() {
 
           <p className="mt-8">
             <span className="text-gray-900">Need an account?</span>
-            <a href="#" className="text-blue-500 hover:text-blue-700 font-semibold">
+            <a href="/register" className="text-blue-500 hover:text-blue-700 font-semibold">
               Create an account
             </a>
           </p>
