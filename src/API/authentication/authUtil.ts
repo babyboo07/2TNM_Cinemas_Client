@@ -13,6 +13,7 @@ const handleLogin = (data: any) => {
       localStorage.setItem("token", res.data.access_token);
       localStorage.setItem("user", JSON.stringify(res.data.user));
       console.log(res.data);
+      window.location.href = "/";
       return res.data;
     });
   } catch (error) {
@@ -23,6 +24,7 @@ const handleRegister = (data: any) => {
   try {
     axios.post(URL + `/register`, data).then((res) => {
       console.log(res.data);
+      window.location.href = "/login";
       return res.data;
     });
   } catch (error) {
@@ -36,6 +38,7 @@ const handleLogout = () => {
       console.log(res.data);
       localStorage.removeItem("token");
       localStorage.removeItem("user");
+      window.location.href = "/login";
       return res.data;
     });
   } catch (error) {

@@ -27,7 +27,7 @@ function App() {
   }, []);
   return (
     <>
-      {userInfo !== null && userInfo !== undefined ? (
+      {userInfo !== null ? (
         <>
           <TopBar />
           <Routes>
