@@ -13,6 +13,7 @@ import AboutUs from "./routes/AboutUs";
 import SignIn from "./routes/authentication/Sign-in";
 import SignUp from "./routes/authentication/Sign-up";
 import { useEffect, useState } from "react";
+import Profile from "./routes/Profile";
 
 function App() {
   const [auth, setAuth] = useState<String>();
@@ -22,7 +23,6 @@ function App() {
     if (token) {
       setAuth(token);
     }
-
   }, []);
 
   return (
@@ -42,6 +42,8 @@ function App() {
             <Route path="/aboutus" element={<AboutUs />} />
 
             <Route path="/movie/booking/order/:movieId" element={<Booking />} />
+
+            <Route path="/profile/:userId" element={<Profile />} />
 
             <Route path="*" element={<E404 />} />
           </Routes>

@@ -44,6 +44,17 @@ const handleLogout = () => {
   }
 };
 
+const editUser = async (data: any) => {
+  try {
+    return await axios.post(URL + `/admin/user/update`, data, config).then((res) => {
+      window.location.href = "/member";
+      return res.data;
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 const getUserInfoById = (userName: string) => {
   try {
     return axios.get(URL + "/view/user/" + userName, config).then((res) => {
@@ -58,4 +69,4 @@ const getUserInfoById = (userName: string) => {
   }
 };
 
-export { handleLogin, handleRegister, handleLogout, getUserInfoById };
+export { handleLogin, handleRegister, handleLogout, getUserInfoById, editUser };

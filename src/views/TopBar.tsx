@@ -88,7 +88,11 @@ function TopBar() {
             onChange={(e) => onChange(e)}
           />
 
-          <i className={`${"fa-solid fa-search "} ${userInfo.fullName != undefined ? "icon-nav-margin-with-auth" : "icon-nav-margin"}`}></i>
+          <i
+            className={`${"fa-solid fa-search "} ${
+              userInfo.fullName != undefined ? "icon-nav-margin-with-auth" : "icon-nav-margin"
+            }`}
+          ></i>
 
           {search.length > 0 && results && (
             <div className="top-bar-dropdown">
@@ -145,7 +149,7 @@ function TopBar() {
                 >
                   <div className="py-1" role="none">
                     <Link
-                      to={"/"}
+                      to={"/profile/" + userInfo.userId}
                       className="text-gray-700 block w-full text-left px-4 py-2 text-sm hover:bg-gray-300"
                     >
                       Profile
