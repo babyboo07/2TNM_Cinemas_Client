@@ -69,8 +69,9 @@ function Footer() {
         <div className="sm:flex sm:items-center sm:justify-between">
           <span className="text-sm text-gray-500 sm:text-center text-gray-400">
             © {new Date().getFullYear()}
-            <a href="https://flowbite.com/" className="hover:underline">
-              Flowbite™
+            <a href="/" className="hover:underline">
+              {" "}
+              2TNM Cinema™
             </a>
             . All Rights Reserved.
           </span>

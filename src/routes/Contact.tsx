@@ -13,23 +13,22 @@ function Contact() {
         <div className="container mx-auto">
           <div className="text-red-600 pt-10 relative h-30 ">
             <div className="absolute inset-x-0 top-0 h-16  text-3xl  text-center font-bold ">
-            Contact Us
+              Contact Us
             </div>
             <div></div>
           </div>
           <div className="grid grid-cols-2 gap-1">
             <div className="">
               <div className="text-gray-900 pt-6  ">
-                <div className="font-bold  hover:text-sky-400">TRỤ SỞ CHÍNH </div>
+                <div className="font-bold  hover:text-sky-400">HEAD OFFICE</div>
                 <div>
-                2nd Floor, Rivera Park Saigon - 7/28 Thanh Thai Street, Ward 14, District 10,
-
-Ho City Chi Minh.
+                  2nd Floor, Rivera Park Saigon - 7/28 Thanh Thai Street, Ward 14, District 10, Ho
+                  City Chi Minh.
                 </div>
               </div>
 
               <div className="text-gray-900 pt-6">
-                <div className="font-bold  hover:text-sky-400">DỊCH VỤ KHÁCH HÀNG</div>
+                <div className="font-bold hover:text-sky-400">CUSTOMER SERVICE</div>
                 <div>
                   <div> Hotline: 1900 6017</div>
                   <div> Working hours: 8:00 - 22:00</div>
@@ -57,7 +56,7 @@ Ho City Chi Minh.
 
               <div className="text-gray-900 pt-6">
                 <div className="font-bold  hover:text-sky-400">
-                CONTACT BRAND COMMUNICATION MARKETING COOPERATION
+                  CONTACT BRAND COMMUNICATION MARKETING COOPERATION
                 </div>
                 <div>
                   <div> Cinema Marketing Department: +84-28-3636 57 57</div>
@@ -75,7 +74,8 @@ Ho City Chi Minh.
             <div>
               <div className="text-gray-900 pt-6">
                 <div className="font-bold  hover:text-sky-400">
-                CONTACT TO BUY GROUP TICKETS, GIFT CARDS, ORGANIZE EVENTS, RENT THEATERS,... JOIN CHAPTER EDUCATOR WITH CINEMA
+                  CONTACT TO BUY GROUP TICKETS, GIFT CARDS, ORGANIZE EVENTS, RENT THEATERS,... JOIN
+                  CHAPTER EDUCATOR WITH CINEMA
                 </div>
                 <div>
                   <div> Sales Department:</div>
@@ -116,9 +116,7 @@ Ho City Chi Minh.
               </div>
 
               <div className="text-gray-900 pt-6">
-                <div className="font-bold  hover:text-sky-400">
-                CONTACT MEDIA & SPONSORSHIP
-                </div>
+                <div className="font-bold  hover:text-sky-400">CONTACT MEDIA & SPONSORSHIP</div>
                 <div>
                   <div> Media Department: +84-28-3636-5757</div>
                   Email:

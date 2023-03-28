@@ -47,7 +47,7 @@ const handleLogout = () => {
 const editUser = async (data: any) => {
   try {
     return await axios.post(URL + `/admin/user/update`, data, config).then((res) => {
-      window.location.href = "/member";
+      window.location.href = "/";
       return res.data;
     });
   } catch (error) {
