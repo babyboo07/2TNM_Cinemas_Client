@@ -113,7 +113,7 @@ function TopBar() {
               <div>
                 <button
                   type="button"
-                  className="inline-flex justify-center shadow-sm px-4 py-2 font-medium text-white outline-none"
+                  className="inline-flex justify-center shadow-sm px-4 py-2 font-medium text-white outline-none "
                   id="menu-button"
                   aria-expanded="true"
                   aria-haspopup="true"
@@ -144,17 +144,26 @@ function TopBar() {
                   // tabindex="-1"
                 >
                   <div className="py-1" role="none">
-                    <form method="POST" action="#" role="none">
-                      <button
-                        type="submit"
-                        className="text-gray-700 block w-full text-left px-4 py-2 text-sm"
-                        role="menuitem"
-                        // tabindex="-1"
-                        id="menu-item-3"
-                      >
-                        Sign out
-                      </button>
-                    </form>
+                    <Link
+                      to={"/"}
+                      className="text-gray-700 block w-full text-left px-4 py-2 text-sm hover:bg-gray-300"
+                    >
+                      Profile
+                    </Link>
+                  </div>
+                  <div className="py-1" role="none">
+                    <button
+                      type="submit"
+                      className="text-gray-700 block w-full text-left px-4 py-2 text-sm hover:bg-gray-300"
+                      role="menuitem"
+                      // tabindex="-1"
+                      id="menu-item-3"
+                      onClick={(e) => {
+                        onLogout();
+                      }}
+                    >
+                      Sign out
+                    </button>
                   </div>
                 </div>
               ) : null}
