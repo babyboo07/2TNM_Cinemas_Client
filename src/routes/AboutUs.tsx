@@ -9,8 +9,8 @@ function AboutUs() {
       </Helmet>
       <div className="bg-white">
         <div className="container1 mx-auto">
-          <div className="text-red-600 pt-10 relative h-30 ">
-            <div className="absolute inset-x-0 top-0 h-16  text-3xl font-bold ">About CGV</div>
+          <div className="text-red-600 pt-10 relative h-30">
+            <div className="absolute inset-x-0 top-0 h-16 text-3xl font-bold pt-3">About CGV</div>
             <div className="video-frame">
               <iframe src={"https://www.youtube.com/embed/e1ZSLVTZ47M"}></iframe>
             </div>
