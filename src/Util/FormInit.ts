@@ -82,3 +82,10 @@ export const Client: IClient = {
   userId: "",
   userName: "",
 };
+
+export interface ITokenObject {
+    sub: string,
+    tokens: [],
+    iss: String,
+    exp: Number
+}

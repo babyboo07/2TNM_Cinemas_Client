@@ -11,7 +11,6 @@ const handleLogin = (data: any) => {
   try {
     axios.post(URL + `/login`, data).then((res) => {
       localStorage.setItem("token", res.data.access_token);
-      localStorage.setItem("user", JSON.stringify(res.data.userInfo));
       console.log(res.data);
       window.location.href = "/";
       return res.data;
@@ -37,7 +36,6 @@ const handleLogout = () => {
     axios.get(URL + `/logout`, config).then((res) => {
       console.log(res.data);
       localStorage.removeItem("token");
-      localStorage.removeItem("user");
       window.location.href = "/login";
       return res.data;
     });
@@ -46,4 +44,18 @@ const handleLogout = () => {
   }
 };
 
-export { handleLogin, handleRegister, handleLogout };
+const getUserInfoById = (userName: string) => {
+  try {
+    return axios.get(URL + "/view/user/" + userName, config).then((res) => {
+      if (res.status === 200) {
+        return res.data;
+      } else {
+        handleLogout();
+      }
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export { handleLogin, handleRegister, handleLogout, getUserInfoById };
