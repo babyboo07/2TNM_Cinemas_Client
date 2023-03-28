@@ -1,10 +1,16 @@
 import { ChangeEvent, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import conf from "../Config";
+import { Client, IClient, ITokenObject } from "../Util/FormInit";
+import { getUserInfoById, handleLogout } from "../API/authentication/authUtil";
+import jwt_decode from "jwt-decode";
 
 function TopBar() {
   const [search, setSearch] = useState("");
   const [mobileSearch, setMobileSearch] = useState(false);
+  const [userInfo, setUserInfo] = useState<IClient>(Client);
+  const [openMenu, setOpenMenu] = useState(false);
+  const [isOpen, setOpen] = useState(false);
 
   const [results, setResults] = useState<any>();
 
@@ -35,6 +41,24 @@ function TopBar() {
     }
   }, [search]);
 
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const fetchData = async () => {
+    const token = localStorage.getItem("token") ? localStorage.getItem("token") : "";
+    if (token) {
+      var decoded: ITokenObject = jwt_decode(token);
+      const user = await getUserInfoById(decoded?.sub);
+      if (user) {
+        setUserInfo(user);
+      }
+    }
+  };
+  const onLogout = () => {
+    handleLogout();
+  };
+
   return (
     <>
       <div className="top-bar">
@@ -49,7 +73,7 @@ function TopBar() {
           <Link to={""}>
             <h3 className="item-nav-margin">Movie</h3>
           </Link>
-          <Link to={"/aboutus"}>
+          <Link to={"/about_us"}>
             <h3 className="item-nav-margin">About Us</h3>
           </Link>
           <Link to={"/contact"}>
@@ -64,7 +88,7 @@ function TopBar() {
             onChange={(e) => onChange(e)}
           />
 
-          <i className="fa-solid fa-search icon-nav-margin"></i>
+          <i className={`${"fa-solid fa-search "} ${userInfo.fullName != undefined ? "icon-nav-margin-with-auth" : "icon-nav-margin"}`}></i>
 
           {search.length > 0 && results && (
             <div className="top-bar-dropdown">
@@ -84,8 +108,71 @@ function TopBar() {
               ))}
             </div>
           )}
-
-          <button className="button-nav">Sign In</button>
+          {userInfo !== null && userInfo !== undefined ? (
+            <div className="relative inline-block text-left">
+              <div>
+                <button
+                  type="button"
+                  className="inline-flex justify-center shadow-sm px-4 py-2 font-medium text-white outline-none "
+                  id="menu-button"
+                  aria-expanded="true"
+                  aria-haspopup="true"
+                  onClick={(e) => setOpen(!isOpen)}
+                >
+                  {userInfo?.fullName}
+                  <svg
+                    className="-mr-1 ml-2 h-5 w-5"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                    aria-hidden="true"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                      clipRule="evenodd"
+                    />
+                  </svg>
+                </button>
+              </div>
+              {isOpen ? (
+                <div
+                  className="origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none"
+                  role="menu"
+                  aria-orientation="vertical"
+                  aria-labelledby="menu-button"
+                  // tabindex="-1"
+                >
+                  <div className="py-1" role="none">
+                    <Link
+                      to={"/"}
+                      className="text-gray-700 block w-full text-left px-4 py-2 text-sm hover:bg-gray-300"
+                    >
+                      Profile
+                    </Link>
+                  </div>
+                  <div className="py-1" role="none">
+                    <button
+                      type="submit"
+                      className="text-gray-700 block w-full text-left px-4 py-2 text-sm hover:bg-gray-300"
+                      role="menuitem"
+                      // tabindex="-1"
+                      id="menu-item-3"
+                      onClick={(e) => {
+                        onLogout();
+                      }}
+                    >
+                      Sign out
+                    </button>
+                  </div>
+                </div>
+              ) : null}
+            </div>
+          ) : (
+            <button className="button-nav">
+              <Link to={"/login"}>Sign In</Link>
+            </button>
+          )}
         </div>
 
         <div className="top-bar-mobile">

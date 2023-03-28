@@ -52,7 +52,7 @@ function CardSection({ title, items }: any) {
         breakpoints={breakpoints}
       >
         {items.map((item: any) => (
-          <div>
+          <div key={item.id}>
             <SwiperSlide key={item.id}>
               <Link
                 to={`/movie/${item.id}`}

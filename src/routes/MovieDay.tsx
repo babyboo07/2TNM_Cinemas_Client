@@ -66,22 +66,19 @@ export default function MovieDay() {
             movieDay.map((item, index) => (
               <div key={index} className="video-meta">
                 <p className="video-meta-title">{item.roomName}</p>
-                {item.lstSubMovied.map((sub, i) => (
+                {item?.lstSubMovied?.map((sub, i) => (
                   <div key={i}>
                     <p className="video-meta-title pl-10"></p>
                     <div className="video-meta-genres pl-12">
                       {sub.showDate}
-                      {sub.lstShowTime.map((itemSub: any, index) => (
-                        <Link
-                          key={index}
-                          to={"/movie/booking/" + itemSub.movieDayId}
-                          className="ml-2"
-                        >
-                          <div className="video-meta-genre-show-time">
-                            <p>{itemSub.showTime}</p>
-                          </div>
-                        </Link>
-                      ))}
+                      {sub?.lstShowTime &&
+                        sub?.lstShowTime?.map((itemSub: any, index) => (
+                          <Link key={index} to={"/movie/booking/order/" + itemSub.movieDayId} className="ml-2">
+                            <div className="video-meta-genre-show-time">
+                              <p>{itemSub.showTime}</p>
+                            </div>
+                          </Link>
+                        ))}
                     </div>
                   </div>
                 ))}

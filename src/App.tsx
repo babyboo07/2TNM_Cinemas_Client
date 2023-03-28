@@ -11,35 +11,48 @@ import MovieDay from "./routes/MovieDay";
 import Contact from "./routes/Contact";
 import AboutUs from "./routes/AboutUs";
 import SignIn from "./routes/authentication/Sign-in";
-// import AboutUs from "./routes/AboutUs";
+import SignUp from "./routes/authentication/Sign-up";
+import { useEffect, useState } from "react";
 
 function App() {
+  const [auth, setAuth] = useState<String>();
+
+  useEffect(() => {
+    const token = localStorage.getItem("token") ? localStorage.getItem("token") : "";
+    if (token) {
+      setAuth(token);
+    }
+
+  }, []);
+
   return (
     <>
-      <Routes>
-        <Route path="/signin" element={<SignIn />} />
-      </Routes>
-      <TopBar />
+      {auth ? (
+        <>
+          <TopBar />
+          <Routes>
+            <Route path="/" element={<Home />} />
 
-      <Routes>
-        <Route path="/" element={<Home />} />
+            <Route path="/movie/:id" element={<Movie />} />
 
-        <Route path="/movie/:id" element={<Movie />} />
+            <Route path="/movie/booking/time/:movieId" element={<MovieDay />} />
 
-        <Route path="/movie/booking/time/:movieId" element={<MovieDay />} />
+            <Route path="/contact" element={<Contact />} />
 
-        <Route path="/booking" element={<Booking />} />
+            <Route path="/aboutus" element={<AboutUs />} />
 
-        <Route path="/contact" element={<Contact />} />
+            <Route path="/movie/booking/order/:movieId" element={<Booking />} />
 
-        <Route path="/aboutus" element={<AboutUs />} />
-
-        <Route path="/movie/booking/:movieId" element={<Booking />} />
-
-        <Route path="*" element={<E404 />} />
-      </Routes>
-
-      <Footer />
+            <Route path="*" element={<E404 />} />
+          </Routes>
+          <Footer />
+        </>
+      ) : (
+        <Routes>
+          <Route path="/login" element={<SignIn />} />
+          <Route path="/register" element={<SignUp />} />
+        </Routes>
+      )}
     </>
   );
 }
