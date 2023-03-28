@@ -19,55 +19,57 @@ function AboutUs() {
             <div className="">
               <div>
                 <p>
-                  <a className="font-bold  text-gray-900">CJ CGV</a> là một trong top 5 cụm rạp
-                  chiếu phim lớn nhất toàn cầu và là nhà phát hành, cụm rạp chiếu phim lớn nhất Việt
-                  Nam.Mục tiêu của chúng tôi là trở thành hình mẫu công ty điển hình đóng góp cho sự
-                  phát triển không ngừng của ngành công nghiệp điện ảnh Việt Nam.
+                  <a className="font-bold  text-gray-900">CJ CGV</a> is one of the top 5 cinema clusters
+                  The largest movie theater in the world and the largest distributor and cinema complex in Vietnam
+                  Nam.Our goal is to become a typical company model that contributes to the
+                  the continuous development of Vietnam's film industry.
                 </p>
                 <br></br>
                 <p>
-                  <a className="font-bold  text-gray-900">CJ CGV</a> đã tạo nên khái niệm độc đáo về
-                  việc chuyển đổi rạp chiếu phim truyền thống thành tổ hợp văn hóa “
-                  <a className="font-bold  text-gray-900">Cultureplex</a>”, nơi khán giả không chỉ
-                  đến thưởng thức điện ảnh đa dạng thông qua các công nghệ tiên tiến như{" "}
+                  <a className="font-bold  text-gray-900">CJ CGV</a> created the unique concept of
+                  the conversion of a traditional cinema into a cultural complex “
+                  <a className="font-bold  text-gray-900">Cultureplex</a>”, where the audience not only
+                  to enjoy diverse cinema through advanced technologies such as{" "}
                   <a className="font-bold  text-gray-900">SCREENX</a>,{" "}
                   <a className="font-bold  text-gray-900">IMAX</a>,{" "}
                   <a className="font-bold  text-gray-900">STARIUM</a>,{" "}
                   <a className="font-bold  text-gray-900">4DX</a>,{" "}
-                  <a className="font-bold  text-gray-900">Dolby Atmos</a>, cũng như thưởng thức ẩm
-                  thực hoàn toàn mới và khác biệt trong khi trải nghiệm dịch vụ chất lượng nhất tại
+                  <a className="font-bold  text-gray-900">Dolby Atmos</a>, as well as enjoy the moisture
+                  completely new and different food while experiencing the best service at
                   CGV.
                 </p>
                 <br></br>
                 <p>
-                  Thông qua những nỗ lực trong việc xây dựng{" "}
+                Through efforts in building{" "}
                   <a className="font-bold  text-gray-900">
-                    chương trình Nhà biên kịch tài năng, Dự án phim ngắn CJ, Lớp học làm phim TOTO,
+                  Talented Screenwriter program, CJ Short Film Project, TOTO Film Making Class,
                     CGV ArtHouse
                   </a>{" "}
-                  cùng việc tài trợ cho các hoạt động liên hoan phim lớn trong nước như{" "}
+                  
+and sponsoring major film festival activities in the country such as{" "}
                   <a className="font-bold  text-gray-900">
-                    Liên hoan Phim quốc tế Hà Nội, Liên hoan Phim Việt Nam, CJ CGV Việt Nam
+                  Hanoi International Film Festival, Vietnam Film Festival, CJ CGV Vietnam
                   </a>{" "}
-                  mong muốn sẽ khám phá và hỗ trợ phát triển cho các nhà làm phim trẻ tài năng của
-                  Việt Nam.
+                  wishes to discover and support the development of talented young filmmakers of
+                  Vietnam.
                 </p>
                 <br></br>
                 <p>
-                  <a className="font-bold  text-gray-900">CJ CGV Việt Nam</a> cũng tập trung quan
-                  tâm đến đối tượng khán giả ở các khu vực không có điều kiện tiếp cận nhiều với
-                  điện ảnh, bằng cách tạo cơ hội để họ có thể thưởng thức những bộ phim chất lượng
-                  cao thông qua các chương trình vì cộng đồng như{" "}
+                  <a className="font-bold  text-gray-900">CJ CGV Viet Nam </a> also focus
+                  focus on audiences in areas that do not have much access to
+                  cinema, by giving them the opportunity to enjoy quality movies
+                  through community programs such as{" "}
                   <a className="font-bold  text-gray-900">Trăng cười </a>và{" "}
                   <a className="font-bold  text-gray-900">Điện ảnh cho mọi người</a>.
                 </p>
                 <br></br>
                 <p>
-                  <a className="font-bold  text-gray-900">CJ CGV Việt Nam</a> sẽ tiếp tục cuộc hành
-                  trình bền bỉ trong việc góp phần xây dựng một nền công nghiệp điện ảnh Việt Nam
-                  ngày càng vững mạnh hơn cùng các khách hàng tiềm năng, các nhà làm phim, các đối
-                  tác kinh doanh uy tín, và cùng toàn thể xã hội.
+                  <a className="font-bold  text-gray-900">CJ CGV Viet Nam </a> will continue the journey
+                  persistent process in contributing to the construction of a Vietnamese film industry
+                  growing stronger with potential customers, filmmakers, partners
+                  business reputation, and with the whole society.
                 </p>
+                <br></br>
               </div>
             </div>
           </div>
