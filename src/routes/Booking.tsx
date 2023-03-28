@@ -223,7 +223,7 @@ export default function Booking() {
         <div className="container mx-auto">
           <div className="text-gray-900 pt-6">
             <div>
-              CGV Vincom Nguyễn Chí Thanh | {movieDay?.roomName}| Số ghế ({132 - seated.length}/132)
+              CGV 2TNM Plaza  | {movieDay?.roomName}| Seats ({132 - seated.length}/132)
             </div>
             <div>Movie: {movieDetail?.titile}</div>
             <div>{movieDay?.showDate + " " + movieDay?.showTime}</div>
@@ -292,7 +292,7 @@ export default function Booking() {
                               <hr className="w-full" />
                               <div className="ticketDetail">
                                 <div>Movie:&ensp; {movieDetail?.titile}</div>
-                                <div>User:&ensp; David Mai</div>
+                                <div>User:&ensp; {userInfo?.fullName}</div>
                                 <div>Studio:&nbsp; {movieDay?.roomName}</div>
                                 <div>Time:&emsp; {movieDay?.showTime}</div>
                                 <div>
