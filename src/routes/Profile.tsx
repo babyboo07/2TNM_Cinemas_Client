@@ -4,6 +4,7 @@ import { ITokenObject } from "../Util/FormInit";
 import jwt_decode from "jwt-decode";
 import { useForm } from "react-hook-form";
 import { VALIDATIONEMAIL } from "../AppContains";
+import TableHistoryOrder from "./HistoryOrder";
 
 function Profile() {
   const [username, setUsername] = useState<any>("");
@@ -182,6 +183,8 @@ function Profile() {
               Submit
             </button>
           </form>
+
+          <TableHistoryOrder userId={userId} />
         </div>
       </div>
     </div>

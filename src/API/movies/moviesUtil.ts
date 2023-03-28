@@ -51,3 +51,11 @@ export const getSeatedBookingById = (id: number) => {
         }
     })
 }
+
+export const getBookingByUserId = (id: String) => {
+    return axios.get(URL + "/view/booking_depot/"+ id).then((res) => {
+        if(res.status === 200){
+            return res.data;
+        }
+    })
+}
