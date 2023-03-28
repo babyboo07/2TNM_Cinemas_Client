@@ -13,21 +13,21 @@ import AboutUs from "./routes/AboutUs";
 import SignIn from "./routes/authentication/Sign-in";
 import SignUp from "./routes/authentication/Sign-up";
 import { useEffect, useState } from "react";
-import { IClient } from "./Util/FormInit";
 
 function App() {
-  const [userInfo, setUserInfo] = useState<IClient>();
+  const [auth, setAuth] = useState<String>();
 
   useEffect(() => {
-    const user = localStorage.getItem("user") ? localStorage.getItem("user") : "";
-    if (user) {
-      const dataUser = JSON.parse(user);
-      setUserInfo(dataUser);
+    const token = localStorage.getItem("token") ? localStorage.getItem("token") : "";
+    if (token) {
+      setAuth(token);
     }
+
   }, []);
+
   return (
     <>
-      {userInfo !== null ? (
+      {auth ? (
         <>
           <TopBar />
           <Routes>

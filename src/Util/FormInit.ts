@@ -70,3 +70,15 @@ export interface IClient {
   userId: String;
   userName: String;
 }
+
+export const Client: IClient = {
+  address: "",
+  dateOfBirth: "",
+  email: "",
+  fullName: "",
+  gender: 0,
+  phoneNumber: "",
+  roles: [{ roleId: 0, roleName: "" }],
+  userId: "",
+  userName: "",
+};

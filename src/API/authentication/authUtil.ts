@@ -11,7 +11,7 @@ const handleLogin = (data: any) => {
   try {
     axios.post(URL + `/login`, data).then((res) => {
       localStorage.setItem("token", res.data.access_token);
-      localStorage.setItem("user", JSON.stringify(res.data.user));
+      localStorage.setItem("user", JSON.stringify(res.data.userInfo));
       console.log(res.data);
       window.location.href = "/";
       return res.data;

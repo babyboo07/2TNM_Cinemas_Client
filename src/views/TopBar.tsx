@@ -84,9 +84,11 @@ function TopBar() {
               ))}
             </div>
           )}
+          
           <button className="button-nav">
             <Link to={"/login"}>Sign In</Link>
           </button>
+          
         </div>
 
         <div className="top-bar-mobile">
