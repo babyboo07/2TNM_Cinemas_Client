@@ -156,6 +156,14 @@ function TopBar() {
                     </Link>
                   </div>
                   <div className="py-1" role="none">
+                    <Link
+                      to={"/profile/" + userInfo.userId}
+                      className="text-gray-700 block w-full text-left px-4 py-2 text-sm hover:bg-gray-300"
+                    >
+                      History
+                    </Link>
+                  </div>
+                  <div className="py-1" role="none">
                     <button
                       type="submit"
                       className="text-gray-700 block w-full text-left px-4 py-2 text-sm hover:bg-gray-300"

@@ -93,7 +93,7 @@ function Profile() {
         <div className="pt-4">
           <h3 className=" text-xl font-bold  border-b-4 border-red-500">Account Information</h3>
           <form className="pt-5" onSubmit={handleSubmit(onSubmit)}>
-            <div className="grid grid-cols-2">
+            <div className="grid grid-cols-2 gap-4">
               <div className="">
                 <div className="mb-6 flex items-center">
                   <label className="block text-sm font-medium pr-2">Username</label>
@@ -101,7 +101,7 @@ function Profile() {
                     type="text"
                     id="userName"
                     value={username}
-                    className="bg-[#242424] border border-gray-800 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 "
+                    className="bg-[#242424] w-full border border-gray-800 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 "
                     placeholder="Username"
                     required
                   />
@@ -111,7 +111,7 @@ function Profile() {
                   <input
                     type="email"
                     id="email"
-                    className="bg-[#242424] border border-gray-800 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 "
+                    className="bg-[#242424] w-full border border-gray-800 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 "
                     placeholder="name@flowbite.com"
                     required
                     {...validationEmail}
@@ -126,7 +126,7 @@ function Profile() {
                     id="fullName"
                     value={fullName}
                     placeholder="Full Name"
-                    className="bg-[#242424] border border-gray-800 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 "
+                    className="bg-[#242424] w-full border border-gray-800 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 "
                     required
                     {...register("fullName", { required: true })}
                     onChange={(e) => setFullName(e.target.value)}
@@ -140,7 +140,7 @@ function Profile() {
                     type="text"
                     id="phoneNumber"
                     placeholder="Phone Number"
-                    className="bg-[#242424] border border-gray-800 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 "
+                    className="bg-[#242424] w-full border border-gray-800 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 "
                     required
                     {...register("phoneNumber", { required: true })}
                     value={phoneNumber}
@@ -152,7 +152,7 @@ function Profile() {
                   <input
                     type="text"
                     id="address"
-                    className="bg-[#242424] border border-gray-800 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 "
+                    className="bg-[#242424] w-full border border-gray-800 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 "
                     required
                     placeholder="Address"
                     {...register("address", { required: true })}
@@ -163,7 +163,7 @@ function Profile() {
                 <div className="mb-6 flex items-center">
                   <label className="block text-sm font-medium pr-2">Gender</label>
                   <select
-                    className="bg-[#242424] border border-gray-800 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5"
+                    className="bg-[#242424] w-full border border-gray-800 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5"
                     {...register("gender", { required: true })}
                     value={gender}
                     onChange={(e) => setGender(e.target.value)}
