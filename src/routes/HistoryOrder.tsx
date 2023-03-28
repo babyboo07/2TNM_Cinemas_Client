@@ -80,19 +80,19 @@ export default function TableHistoryOrder(props: any) {
   };
 
   return (
-    <div>
+    <div className="pt-4">
       {isHidden ? (
-        <button onClick={() => handleClickShow()}>
+        <button className="py-1" onClick={() => handleClickShow()}>
           <span className="text-sky-500">Show History Order</span>
         </button>
       ) : (
         <div>
-          <button onClick={() => handleClickShow()}>
+          <button className="py-1" onClick={() => handleClickShow()}>
             <span className="text-sky-500">Hidden History Order</span>
           </button>
-          <div className="relative  shadow-md sm:rounded-lg">
-            <table className="w-full text-sm text-left text-gray-900 dark:text-gray-400">
-              <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+          <div className="relative shadow-md sm:rounded-lg">
+            <table className="w-full text-sm text-left text-gray-900 text-gray-400">
+              <thead className="text-xs uppercase bg-gray-700 text-gray-400">
                 <tr>
                   <th scope="col" className="px-6 py-3">
                     Order By
@@ -123,16 +123,37 @@ export default function TableHistoryOrder(props: any) {
               <tbody>
                 {paginatedItems.length > 0 &&
                   paginatedItems.map((c, index) => (
-                    <tr key={index} className="bg-white border-b hover:bg-gray-50">
-                      <td className="px-6 py-4">{c.email}</td>
-                      <td className="px-6 py-4">{c.movieName}</td>
-                      <td className="px-6 py-4">{c.roomName}</td>
-                      <td className="px-6 py-4">{c.seatName}</td>
-                      <td className="px-6 py-4">{c.orderDate}</td>
-                      <td className="px-6 py-4">{c.showDate}</td>
-                      <td className="px-6 py-4">{c.showTime}</td>
-                      <td className="px-6 py-4">
-                        {checkDateExecuteBooking(c.showDate + " " + c.showTime + ":00") ? <span className="text-green-500">Using</span> : <span className="text-red-300">Expired</span>}
+                    <tr
+                      key={index}
+                      className=" border-b hover:bg-gray-500 bg-gray-800 border-gray-700"
+                    >
+                      <td className="px-6 py-4 font-medium whitespace-nowrap text-white">
+                        {c.email}
+                      </td>
+                      <td className="px-6 py-4 font-medium whitespace-nowrap text-white">
+                        {c.movieName}
+                      </td>
+                      <td className="px-6 py-4 font-medium whitespace-nowrap text-white">
+                        {c.roomName}
+                      </td>
+                      <td className="px-6 py-4 font-medium whitespace-nowrap text-white">
+                        {c.seatName}
+                      </td>
+                      <td className="px-6 py-4 font-medium whitespace-nowrap text-white">
+                        {c.orderDate}
+                      </td>
+                      <td className="px-6 py-4 font-medium  whitespace-nowrap text-white">
+                        {c.showDate}
+                      </td>
+                      <td className="px-6 py-4 font-medium  whitespace-nowrap text-white">
+                        {c.showTime}
+                      </td>
+                      <td className="px-6 py-4 font-medium  whitespace-nowrap text-white">
+                        {checkDateExecuteBooking(c.showDate + " " + c.showTime + ":00") ? (
+                          <span className="text-green-500">Using</span>
+                        ) : (
+                          <span className="text-red-300">Expired</span>
+                        )}
                       </td>
                     </tr>
                   ))}
