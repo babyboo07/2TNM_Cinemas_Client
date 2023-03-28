@@ -37,13 +37,11 @@ function App() {
 
             <Route path="/movie/booking/time/:movieId" element={<MovieDay />} />
 
-            <Route path="/booking" element={<Booking />} />
-
             <Route path="/contact" element={<Contact />} />
 
             <Route path="/aboutus" element={<AboutUs />} />
 
-            <Route path="/movie/booking/:movieId" element={<Booking />} />
+            <Route path="/movie/booking/order/:movieId" element={<Booking />} />
 
             <Route path="*" element={<E404 />} />
           </Routes>

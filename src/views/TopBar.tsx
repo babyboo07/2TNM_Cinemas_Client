@@ -73,7 +73,7 @@ function TopBar() {
           <Link to={""}>
             <h3 className="item-nav-margin">Movie</h3>
           </Link>
-          <Link to={"/aboutus"}>
+          <Link to={"/about_us"}>
             <h3 className="item-nav-margin">About Us</h3>
           </Link>
           <Link to={"/contact"}>
@@ -88,7 +88,7 @@ function TopBar() {
             onChange={(e) => onChange(e)}
           />
 
-          <i className="fa-solid fa-search icon-nav-margin"></i>
+          <i className={`${"fa-solid fa-search "} ${userInfo.fullName != undefined ? "icon-nav-margin-with-auth" : "icon-nav-margin"}`}></i>
 
           {search.length > 0 && results && (
             <div className="top-bar-dropdown">
