@@ -14,6 +14,7 @@ import CardSection from "../components/CardSection";
 import Loading from "../views/Loading";
 import { IMovie } from "../Util/FormInit";
 import { getListMovieById } from "../API/movies/moviesUtil";
+import { URL_IMAGE } from "../AppContains";
 
 function Movie() {
   const { id } = useParams();
@@ -114,6 +115,18 @@ function Movie() {
                 ))}
               </div>
             </div>
+          </div>
+          <div className="flex-container">
+            {data.casts.map((cast: any) => (
+              <div key={cast.castId}>
+                {cast?.image && (
+                  <div>
+                    <img className="" src={URL_IMAGE + cast.image} />
+                    <p className="video-meta-genre-cast-text">{cast.castName}</p>
+                  </div>
+                )}
+              </div>
+            ))}
           </div>
         </div>
 
