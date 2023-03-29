@@ -18,18 +18,20 @@ export default function LstMovie(props: any) {
     }
   };
   return (
-    <div className="ml-10 mr-10">
-      {!movies ? (
-        <div className="movie-section">
-          <p className="movie-section-title">List Movie 👑</p>
+    <div className="container mx-auto">
+      <div className="ml-10 mr-10">
+        {!movies ? (
+          <div className="movie-section">
+            <p className="movie-section-title">List Movie 👑</p>
 
-          <div className="movie-section-loading">
-            <i className="fa-solid fa-spinner-third"></i>
+            <div className="movie-section-loading">
+              <i className="fa-solid fa-spinner-third"></i>
+            </div>
           </div>
-        </div>
-      ) : (
-        <CardSection title="Now Showing 👑" items={movies} />
-      )}
+        ) : (
+          <CardSection title="Now Showing 👑" items={movies} />
+        )}
+      </div>
     </div>
   );
 }

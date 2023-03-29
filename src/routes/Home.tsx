@@ -62,8 +62,8 @@ function Home() {
               <p className="movie-hero-desc">{featured.description}</p>
 
               <button className="movie-hero-play">
-                <i className="fa-solid fa-ticket"></i>
-                <p>Buy Ticket</p>
+                <i className="fa-solid fa-clapperboard fa-beat-fade"></i>
+                <p>View Detail</p>
               </button>
             </div>
           </Link>
