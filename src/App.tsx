@@ -14,6 +14,7 @@ import SignIn from "./routes/authentication/Sign-in";
 import SignUp from "./routes/authentication/Sign-up";
 import { useEffect, useState } from "react";
 import Profile from "./routes/Profile";
+import LstMovie from "./routes/ListMovie";
 
 function App() {
   const [auth, setAuth] = useState<String>();
@@ -44,6 +45,8 @@ function App() {
             <Route path="/movie/booking/order/:movieId" element={<Booking />} />
 
             <Route path="/profile/:userId" element={<Profile />} />
+
+            <Route path="/list_movie" element={<LstMovie />} />
 
             <Route path="*" element={<E404 />} />
           </Routes>

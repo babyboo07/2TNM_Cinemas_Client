@@ -20,7 +20,8 @@ function Home() {
     const movieData: IMovie[] = await getListMovie();
 
     if (movieData) {
-      setFeatured(movieData[0]);
+      const data: IMovie[] = movieData.filter((x) => x.startNumber === 1);
+      setFeatured(data[0]);
       setMovies(movieData);
     }
   };

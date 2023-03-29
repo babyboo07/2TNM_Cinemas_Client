@@ -65,6 +65,7 @@ const getUserInfoById = (userName: string) => {
       }
     });
   } catch (error) {
+    handleLogout();
     console.log(error);
   }
 };

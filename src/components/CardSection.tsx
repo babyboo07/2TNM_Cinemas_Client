@@ -64,6 +64,7 @@ function CardSection({ title, items }: any) {
                 <div className="movie-card-content">
                   <i className="fa-solid fa-ticket"></i>
                   <p>{item.titile}</p>
+                  <p>{item.releaseDate}</p>
                 </div>
               </Link>
             </SwiperSlide>

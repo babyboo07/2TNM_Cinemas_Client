@@ -70,7 +70,7 @@ function TopBar() {
           <Link to="/">
             <h3 className="item-nav-margin">Home</h3>
           </Link>
-          <Link to={""}>
+          <Link to={"/list_movie"}>
             <h3 className="item-nav-margin">Movie</h3>
           </Link>
           <Link to={"/about_us"}>
