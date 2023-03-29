@@ -6,7 +6,7 @@ export interface IMovie {
   trailer: String,
   startNumber: Number,
   runningTime: String,
-  releaseDate: String,
+  releaseDate: string,
   rated: String,
   createById: string,
   createByName: String,

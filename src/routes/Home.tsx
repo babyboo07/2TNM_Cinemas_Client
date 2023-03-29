@@ -10,6 +10,8 @@ import { URL_IMAGE } from "../AppContains";
 
 function Home() {
   const [movies, setMovies] = useState<IMovie[]>([]);
+  const [comingSoonMovie, setComingSoonMovie] = useState<IMovie[]>([]);  
+  const [showingMovie, setShowingMovie] = useState<IMovie[]>([]); 
   const [featured, setFeatured] = useState<IMovie>();
 
   useEffect(() => {
@@ -21,7 +23,12 @@ function Home() {
 
     if (movieData) {
       const data: IMovie[] = movieData.filter((x) => x.startNumber === 1);
+      const comingSoon : IMovie[] = movieData.filter((x) => new Date(Date.parse(x.releaseDate)) > new Date());
+      const nowShowing : IMovie[] = movieData.filter((x) => new Date(Date.parse(x.releaseDate)) < new Date());
+
       setFeatured(data[0]);
+      setShowingMovie(nowShowing)
+      setComingSoonMovie(comingSoon)
       setMovies(movieData);
     }
   };
@@ -78,7 +85,7 @@ function Home() {
             </div>
           </div>
         ) : (
-          <CardSection title="Now Showing 👑" items={movies} />
+          <CardSection title="Now Showing 👑" items={showingMovie} />
         )}
 
         {!movies ? (
@@ -90,7 +97,7 @@ function Home() {
             </div>
           </div>
         ) : (
-          <CardSection title="Coming Soon 🔥" items={movies} />
+          <CardSection title="Coming Soon 🔥" items={comingSoonMovie} />
         )}
       </div>
     </>
