@@ -11,7 +11,7 @@ function TopBar() {
   const [userInfo, setUserInfo] = useState<IClient>(Client);
   const [openMenu, setOpenMenu] = useState(false);
   const [isOpen, setOpen] = useState(false);
-
+  const [auth, setAuth] = useState<String>();
   const [results, setResults] = useState<any>();
 
   function onChange(e: ChangeEvent<HTMLInputElement>) {
@@ -43,6 +43,10 @@ function TopBar() {
 
   useEffect(() => {
     fetchData();
+    const token = localStorage.getItem("token") ? localStorage.getItem("token") : "";
+    if (token) {
+      setAuth(token);
+    }
   }, []);
 
   const fetchData = async () => {
@@ -112,7 +116,7 @@ function TopBar() {
               ))}
             </div>
           )}
-          {userInfo !== null && userInfo !== undefined ? (
+          {auth ? (
             <div className="relative inline-block text-left">
               <div>
                 <button

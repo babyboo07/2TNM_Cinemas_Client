@@ -18,6 +18,7 @@ import LstMovie from "./routes/ListMovie";
 
 function App() {
   const [auth, setAuth] = useState<String>();
+  const [isLogin, setIsLogin] = useState<Boolean>(false);
 
   useEffect(() => {
     const token = localStorage.getItem("token") ? localStorage.getItem("token") : "";
@@ -53,10 +54,23 @@ function App() {
           <Footer />
         </>
       ) : (
-        <Routes>
-          <Route path="/login" element={<SignIn />} />
-          <Route path="/register" element={<SignUp />} />
-        </Routes>
+        <>
+          <Routes>
+            <Route path="/login" element={<SignIn />} />
+            <Route path="/register" element={<SignUp />} />
+          </Routes>
+          <>
+            <TopBar />
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/movie/:id" element={<Movie />} />
+              <Route path="/contact" element={<Contact />} />
+              <Route path="/about_us" element={<AboutUs />} />
+              <Route path="/list_movie" element={<LstMovie />} />
+            </Routes>
+            <Footer />
+          </>
+        </>
       )}
     </>
   );
