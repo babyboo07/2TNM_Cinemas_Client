@@ -1,7 +1,14 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { Helmet } from "react-helmet";
-import { FacebookShareButton, FacebookIcon, TwitterShareButton, TwitterIcon, TelegramShareButton, TelegramIcon } from "react-share";
+import {
+  FacebookShareButton,
+  FacebookIcon,
+  TwitterShareButton,
+  TwitterIcon,
+  TelegramShareButton,
+  TelegramIcon,
+} from "react-share";
 import conf from "../Config";
 import CardSection from "../components/CardSection";
 import Loading from "../views/Loading";
@@ -50,7 +57,13 @@ function Movie() {
         <div className="video-meta">
           <p className="video-meta-title">{data.titile}</p>
           <div className="video-meta-row">
-            <p className="video-meta-year">{data.startNumber === 1 ? <i className="fa-solid fa-star hot"></i> : <i className="fa-solid fa-star normal"></i>}</p>
+            <p className="video-meta-year">
+              {data.startNumber === 1 ? (
+                <i className="fa-solid fa-star hot"></i>
+              ) : (
+                <i className="fa-solid fa-star normal"></i>
+              )}
+            </p>
             <p className="video-meta-year">{data.releaseDate}</p>
             <p className="video-meta-length">
               {Math.floor(Number(data.runningTime) / 60)}h {Number(data.runningTime) % 60}m
@@ -100,7 +113,11 @@ function Movie() {
                   <FacebookIcon size={40} round />
                 </FacebookShareButton>
 
-                <TwitterShareButton url={location.href} title={`Watch ${data.titile} - ${data.releaseDate} for free at`} className="video-meta-button">
+                <TwitterShareButton
+                  url={location.href}
+                  title={`Watch ${data.titile} - ${data.releaseDate} for free at`}
+                  className="video-meta-button"
+                >
                   <TwitterIcon size={40} round />
                 </TwitterShareButton>
 
@@ -128,16 +145,20 @@ function Movie() {
                 <p className="video-meta-genre-cast-text">{data.directorName}</p>
               </div>
             )}
-            {data.casts.map((cast: any) => (
-              <div key={cast.castId}>
-                {cast?.image && (
-                  <div>
-                    <img className="" src={URL_IMAGE + cast.image} />
-                    <p className="video-meta-genre-cast-text">{cast.castName}</p>
+            {data.casts.map((cast: any) => {
+              if (cast.image) {
+                return (
+                  <div key={cast.castId}>
+                    {cast?.image && (
+                      <div>
+                        <img className="" src={URL_IMAGE + cast.image} />
+                        <p className="video-meta-genre-cast-text">{cast.castName}</p>
+                      </div>
+                    )}
                   </div>
-                )}
-              </div>
-            ))}
+                );
+              }
+            })}
           </div>
         </div>
 
