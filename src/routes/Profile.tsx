@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { editUser, getUserInfoById } from "../API/authentication/authUtil";
+import { editUser, getUserInfoById, handleLogout } from "../API/authentication/authUtil";
 import { ITokenObject } from "../Util/FormInit";
 import jwt_decode from "jwt-decode";
 import { useForm } from "react-hook-form";
@@ -42,6 +42,8 @@ function Profile() {
         setFullName(user.fullName);
         setUserId(user.userId);
       }
+    }else{
+      await handleLogout();
     }
   };
 

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { getUserInfoById } from "../API/authentication/authUtil";
+import { getUserInfoById, handleLogout } from "../API/authentication/authUtil";
 import { IClient, IHistoryBooking, ITokenObject } from "../Util/FormInit";
 import jwt_decode from "jwt-decode";
 import { getBookingByUserId } from "../API/movies/moviesUtil";
@@ -34,6 +34,8 @@ export default function TableHistoryOrder(props: any) {
           setLstHistoryOrder(history);
         }
         setUserInfo(user);
+      }else{
+        await handleLogout();
       }
     }
   };

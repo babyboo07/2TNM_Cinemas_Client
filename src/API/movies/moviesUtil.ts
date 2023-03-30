@@ -2,6 +2,12 @@ import axios from "axios";
 import { URL } from "../../AppContains";
 import { IBookingMovie } from "../../Util/FormInit";
 
+const config = {
+    headers: {
+      " Authorization": "Bearer " + localStorage.getItem("token"),
+    },
+  };
+
 export const getListMovie = () => {
     return axios.get(URL + "/view/movies").then((res) => {
         if(res.status === 200){
@@ -35,7 +41,7 @@ export const getMovieDayById = (id: number) => {
 }
 
 export const saveBookingOrder = (data : IBookingMovie) => {
-    return axios.post(URL + "/view/save/booking" , data).then((res) => {
+    return axios.post(URL + "/user/save/booking" , data,config).then((res) => {
         if(res.status === 200){
             return true;
         }else{
@@ -53,7 +59,7 @@ export const getSeatedBookingById = (id: number) => {
 }
 
 export const getBookingByUserId = (id: String) => {
-    return axios.get(URL + "/view/booking_depot/"+ id).then((res) => {
+    return axios.get(URL + "/user/booking_depot/"+ id , config).then((res) => {
         if(res.status === 200){
             return res.data;
         }

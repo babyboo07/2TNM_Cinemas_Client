@@ -15,6 +15,7 @@ export interface IMovie {
   casts: [],
   directorId: Number,
   directorName: String,
+  directorImage: String;
 }
 
 export interface IMovieDay {

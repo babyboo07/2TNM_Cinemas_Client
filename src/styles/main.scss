@@ -187,13 +187,19 @@ a{
     flex-wrap: nowrap;
   }
   
-  .flex-container > div  {
+.flex-container > div  {
     width: 100px;
     margin: 10px;
     text-align: center;
     font-size: 30px;
-  }
+}
 
+// .flex-container > div > img {
+//     height: 130px !important;
+//     width: 150px !important;
+//     // max-width: 100% !important;
+// }
+  
 .seatBlocked {
     cursor: default;
     // background: #fff;

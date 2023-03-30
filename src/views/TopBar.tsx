@@ -56,6 +56,8 @@ function TopBar() {
       const user = await getUserInfoById(decoded?.sub);
       if (user) {
         setUserInfo(user);
+      }else{
+        await handleLogout();
       }
     }
   };

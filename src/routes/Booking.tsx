@@ -25,7 +25,7 @@ import {
 
 import jwt_decode from "jwt-decode";
 import MovieDay from "./MovieDay";
-import { getUserInfoById } from "../API/authentication/authUtil";
+import { getUserInfoById, handleLogout } from "../API/authentication/authUtil";
 
 const steps = ["People/Seats", "Payment", "Notification"];
 
@@ -63,6 +63,8 @@ export default function Booking() {
 
       if (user) {
         setUserInfo(user);
+      }else{
+        await handleLogout();
       }
     }
 
