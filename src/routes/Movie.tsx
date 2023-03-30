@@ -19,6 +19,8 @@ import { URL_IMAGE } from "../AppContains";
 function Movie() {
   const { id } = useParams();
   const [data, setData] = useState<IMovie>();
+  const [auth, setAuth] = useState<String>();
+
   async function getMovie() {
     const req = await getListMovieById(Number(id));
     console.log(req);
@@ -30,6 +32,13 @@ function Movie() {
   useEffect(() => {
     getMovie();
   }, [id]);
+
+  useEffect(() => {
+    const token = localStorage.getItem("token") ? localStorage.getItem("token") : "";
+    if (token) {
+      setAuth(token);
+    }
+  }, []);
 
   if (!data) {
     return <Loading />;
@@ -73,14 +82,27 @@ function Movie() {
           </div>
           <p className="video-meta-desc">{data.description}</p>
           <div className="grid grid-cols-2 ">
-            <Link to={"/movie/booking/time/" + data.id}>
-              <div>
-                <button className="movie-hero-play">
-                  <i className="fa-solid fa-ticket"></i>
-                  <p>Buy Ticket</p>
-                </button>
-              </div>
-            </Link>
+            <div>
+              {auth ? (
+                <Link to={"/movie/booking/time/" + data.id}>
+                  <div>
+                    <button className="movie-hero-play">
+                      <i className="fa-solid fa-ticket"></i>
+                      <p>Buy Ticket</p>
+                    </button>
+                  </div>
+                </Link>
+              ) : (
+                <Link to={"/login"}>
+                  <div>
+                    <button className="movie-hero-play">
+                      <i className="fa-solid fa-ticket"></i>
+                      <p>Buy Ticket</p>
+                    </button>
+                  </div>
+                </Link>
+              )}
+            </div>
             <div>
               <div className="video-meta-share justify-end">
                 <FacebookShareButton
