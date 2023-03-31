@@ -63,7 +63,7 @@ export default function Booking() {
 
       if (user) {
         setUserInfo(user);
-      }else{
+      } else {
         await handleLogout();
       }
     }
@@ -328,7 +328,7 @@ export default function Booking() {
                         <div className="grid grid-cols-2 gap-2">
                           <div className="ticketContainer">
                             <div className="ticket border w-full">
-                              <div className="ticketTitle">Cinema XXV</div>
+                              <div className="ticketTitle">CGV 2TNM Plaza</div>
                               <hr className="w-full" />
                               <div className="ticketDetail">
                                 <div>Movie:&ensp; {movieDetail?.titile}</div>
