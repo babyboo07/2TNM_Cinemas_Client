@@ -1,11 +1,13 @@
 import { ChangeEvent, useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import conf from "../Config";
 import { Client, IClient, ITokenObject } from "../Util/FormInit";
 import { getUserInfoById, handleLogout } from "../API/authentication/authUtil";
 import jwt_decode from "jwt-decode";
 
 function TopBar() {
+  const navigate = useNavigate();
+
   const [search, setSearch] = useState("");
   const [mobileSearch, setMobileSearch] = useState(false);
   const [userInfo, setUserInfo] = useState<IClient>(Client);
@@ -13,6 +15,7 @@ function TopBar() {
   const [isOpen, setOpen] = useState(false);
   const [auth, setAuth] = useState<String>();
   const [results, setResults] = useState<any>();
+  const [isLogin, setIsLogin] = useState<Boolean>(false);
 
   function onChange(e: ChangeEvent<HTMLInputElement>) {
     setSearch(e.target.value);
@@ -52,17 +55,24 @@ function TopBar() {
   const fetchData = async () => {
     const token = localStorage.getItem("token") ? localStorage.getItem("token") : "";
     if (token) {
+      setIsLogin(true);
       var decoded: ITokenObject = jwt_decode(token);
       const user = await getUserInfoById(decoded?.sub);
       if (user) {
         setUserInfo(user);
-      }else{
+      } else {
         await handleLogout();
       }
     }
   };
   const onLogout = () => {
     handleLogout();
+  };
+
+  const handleKeyDown = (e: any) => {
+    if (e.key === "Enter") {
+      navigate("/list_movie/" + search);
+    }
   };
 
   return (
@@ -86,38 +96,10 @@ function TopBar() {
             <h3 className="item-nav-margin">Contact</h3>
           </Link>
 
-          <input
-            type="text"
-            value={search}
-            className="input-nav-margin"
-            placeholder="Search"
-            onChange={(e) => onChange(e)}
-          />
-
-          <i
-            className={`${"fa-solid fa-search "} ${
-              userInfo.fullName != undefined ? "icon-nav-margin-with-auth" : "icon-nav-margin"
-            }`}
-          ></i>
-
-          {search.length > 0 && results && (
-            <div className="top-bar-dropdown">
-              {results.map((result: any) => (
-                <Link
-                  to={"/" + result.type + "/" + result.id}
-                  onClick={() => onClick()}
-                  className="top-bar-dropitem"
-                >
-                  <i className="fa-solid fa-play-circle"></i>
-                  <p className="title">{result.title}</p>
-
-                  <div className="tag">
-                    <p>{result.type}</p>
-                  </div>
-                </Link>
-              ))}
-            </div>
-          )}
+          <div className="grid ">
+            <input type="text" value={search} className="input-nav-margin" placeholder="Search" onChange={(e) => onChange(e)} onKeyDown={handleKeyDown} />
+            <i className={`${"fa-solid fa-search "} ${isLogin ? "icon-nav-margin-with-auth" : "icon-nav-margin"}`}></i>
+          </div>
           {auth ? (
             <div className="relative inline-block text-left">
               <div>
@@ -130,13 +112,7 @@ function TopBar() {
                   onClick={(e) => setOpen(!isOpen)}
                 >
                   {userInfo?.userName}
-                  <svg
-                    className="-mr-1 ml-2 h-5 w-5"
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 20 20"
-                    fill="currentColor"
-                    aria-hidden="true"
-                  >
+                  <svg className="-mr-1 ml-2 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                     <path
                       fillRule="evenodd"
                       d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
@@ -154,18 +130,12 @@ function TopBar() {
                   // tabindex="-1"
                 >
                   <div className="py-1" role="none">
-                    <Link
-                      to={"/profile/" + userInfo.userId}
-                      className="text-gray-700 block w-full text-left px-4 py-2 text-sm hover:bg-gray-300"
-                    >
+                    <Link to={"/profile/" + userInfo.userId} className="text-gray-700 block w-full text-left px-4 py-2 text-sm hover:bg-gray-300">
                       Profile
                     </Link>
                   </div>
                   <div className="py-1" role="none">
-                    <Link
-                      to={"/profile/" + userInfo.userId}
-                      className="text-gray-700 block w-full text-left px-4 py-2 text-sm hover:bg-gray-300"
-                    >
+                    <Link to={"/profile/" + userInfo.userId} className="text-gray-700 block w-full text-left px-4 py-2 text-sm hover:bg-gray-300">
                       History
                     </Link>
                   </div>
@@ -214,11 +184,7 @@ function TopBar() {
             {search.length > 0 &&
               results &&
               results.map((result: any) => (
-                <Link
-                  to={"/" + result.type + "/" + result.id}
-                  onClick={() => onClick()}
-                  className="mobile-search-item"
-                >
+                <Link to={"/" + result.type + "/" + result.id} onClick={() => onClick()} className="mobile-search-item">
                   <i className="fa-solid fa-play-circle"></i>
 
                   <p className="title">{result.title}</p>

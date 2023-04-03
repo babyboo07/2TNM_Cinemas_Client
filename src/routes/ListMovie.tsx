@@ -3,28 +3,43 @@ import { getListMovie } from "../API/movies/moviesUtil";
 import CardSection from "../components/CardSection";
 import { IMovie } from "../Util/FormInit";
 import { SwiperSlide } from "swiper/react";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { URL_IMAGE } from "../AppContains";
 
 export default function LstMovie(props: any) {
   const [movies, setMovies] = useState<IMovie[]>([]);
+  const [allMovies, setAllMovies] = useState<IMovie[]>([]);
+
+  const { text } = useParams();
 
   useEffect(() => {
     fetchData();
   }, []);
 
+  useEffect(() => {
+    const name: String = text != undefined ? text.toLocaleLowerCase() : "";
+    const dataFilter: IMovie[] = allMovies.filter((x) => x.titile.toLocaleLowerCase().includes(name.toLocaleLowerCase()));
+    setMovies(dataFilter);
+  }, [text]);
+
   const fetchData = async () => {
     const movieData: IMovie[] = await getListMovie();
 
     if (movieData) {
-      setMovies(movieData);
+      if (text) {
+        const dataFilter: IMovie[] = movieData.filter((x) => x.titile.toLocaleLowerCase().includes(text.toLocaleLowerCase()));
+        setMovies(dataFilter);
+      } else {
+        setMovies(movieData);
+      }
+      setAllMovies(movieData);
     }
   };
-  console.log(movies);
 
   return (
     <div className="container mx-auto">
       <div className="ml-10 mr-10">
+        {text && <div className="justify-center">Search Movie By : {text}</div>}
         {!movies ? (
           <div className="movie-section">
             <p className="movie-section-title">List Movie 👑</p>

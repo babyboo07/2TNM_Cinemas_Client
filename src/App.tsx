@@ -49,7 +49,9 @@ function App() {
 
             <Route path="/list_movie" element={<LstMovie />} />
 
-            <Route path="*" element={<E404 />} />
+            <Route path="*" element={<E404 />} /> 
+
+            <Route path="/list_movie/:text" element={<LstMovie />} />
           </Routes>
           <Footer />
         </>
@@ -67,7 +69,8 @@ function App() {
                 <Route path="/movie/:id" element={<Movie />} />
                 <Route path="/contact" element={<Contact />} />
                 <Route path="/about_us" element={<AboutUs />} />
-                <Route path="/list_movie" element={<LstMovie />} />
+                <Route path="/list_movie" element={<LstMovie />} />    
+                <Route path="/list_movie/:text" element={<LstMovie />} />
               </Routes>
               <Footer />
             </>
