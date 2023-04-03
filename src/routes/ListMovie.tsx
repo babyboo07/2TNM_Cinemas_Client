@@ -18,7 +18,9 @@ export default function LstMovie(props: any) {
 
   useEffect(() => {
     const name: String = text != undefined ? text.toLocaleLowerCase() : "";
-    const dataFilter: IMovie[] = allMovies.filter((x) => x.titile.toLocaleLowerCase().includes(name.toLocaleLowerCase()));
+    const dataFilter: IMovie[] = allMovies.filter((x) =>
+      x.titile.toLocaleLowerCase().includes(name.toLocaleLowerCase())
+    );
     setMovies(dataFilter);
   }, [text]);
 
@@ -27,7 +29,9 @@ export default function LstMovie(props: any) {
 
     if (movieData) {
       if (text) {
-        const dataFilter: IMovie[] = movieData.filter((x) => x.titile.toLocaleLowerCase().includes(text.toLocaleLowerCase()));
+        const dataFilter: IMovie[] = movieData.filter((x) =>
+          x.titile.toLocaleLowerCase().includes(text.toLocaleLowerCase())
+        );
         setMovies(dataFilter);
       } else {
         setMovies(movieData);
@@ -38,8 +42,12 @@ export default function LstMovie(props: any) {
 
   return (
     <div className="container mx-auto">
-      <div className="ml-10 mr-10">
-        {text && <div className="justify-center">Search Movie By : {text}</div>}
+      <div className="ml-10 mr-10 pt-5">
+        {text && (
+          <div className="justify-center">
+            Search Movie By : <span className="italic ">{text}</span>
+          </div>
+        )}
         {!movies ? (
           <div className="movie-section">
             <p className="movie-section-title">List Movie 👑</p>
