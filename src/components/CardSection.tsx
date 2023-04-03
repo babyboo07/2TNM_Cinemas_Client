@@ -45,7 +45,7 @@ function CardSection({ title, items }: any) {
       <p className="movie-section-title">{title}</p>
 
       <Swiper
-        autoplay={{ delay: 5000 }}
+        autoplay={{ delay: 10000 }}
         navigation={true}
         modules={[Navigation, Autoplay]}
         className="movie-section-row"

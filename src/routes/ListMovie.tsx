@@ -2,6 +2,9 @@ import React, { useEffect, useState } from "react";
 import { getListMovie } from "../API/movies/moviesUtil";
 import CardSection from "../components/CardSection";
 import { IMovie } from "../Util/FormInit";
+import { SwiperSlide } from "swiper/react";
+import { Link } from "react-router-dom";
+import { URL_IMAGE } from "../AppContains";
 
 export default function LstMovie(props: any) {
   const [movies, setMovies] = useState<IMovie[]>([]);
@@ -17,6 +20,8 @@ export default function LstMovie(props: any) {
       setMovies(movieData);
     }
   };
+  console.log(movies);
+
   return (
     <div className="container mx-auto">
       <div className="ml-10 mr-10">
@@ -29,7 +34,29 @@ export default function LstMovie(props: any) {
             </div>
           </div>
         ) : (
-          <CardSection title="Now Showing 👑" items={movies} />
+          // <CardSection title="Now Showing 👑" items={movies} />
+          <div className="grid grid-cols-6 gap-4 pt-5">
+            {movies &&
+              movies.map((item: any) => (
+                <div key={item.id}>
+                  <SwiperSlide key={item.id}>
+                    <Link
+                      to={`/movie/${item.id}`}
+                      className="movie-card"
+                      style={{
+                        background: `url(${URL_IMAGE + item.thumail}) no-repeat center / cover `,
+                      }}
+                    >
+                      <div className="movie-card-content">
+                        <i className="fa-solid fa-ticket"></i>
+                        <p>{item.titile}</p>
+                        <p>{item.releaseDate}</p>
+                      </div>
+                    </Link>
+                  </SwiperSlide>
+                </div>
+              ))}
+          </div>
         )}
       </div>
     </div>
