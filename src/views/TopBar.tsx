@@ -69,7 +69,7 @@ function TopBar() {
     <>
       <div className="top-bar">
         <Link to="/" className="top-bar-logo">
-          <img src="/logo.png" alt={conf.SITE_NAME} />
+          <img className="" src="/logo2.png" alt={conf.SITE_NAME} />
         </Link>
 
         <div className="top-bar-search">

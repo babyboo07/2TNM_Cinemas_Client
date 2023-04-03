@@ -8,7 +8,7 @@ function Footer() {
         <div className="md:flex md:justify-between">
           <div className="mb-6 md:mb-0">
             <Link to="/" className="top-bar-logo">
-              <img src="/logo.png" alt={conf.SITE_NAME} />
+              <img src="/logo2.png" alt={conf.SITE_NAME} />
             </Link>
           </div>
           <div className="grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-3">
